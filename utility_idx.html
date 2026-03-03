@@ -4,56 +4,65 @@
 <title>小巧思首页</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
-/* 移动端适配 */
+/* 移动端适配 - 仅针对主布局表格 */
 @media screen and (max-width: 980px) {
-  center table {
-    width: 100% !important;
-    max-width: 100%;
-    margin: 0 !important;
-    border: 2px solid #600000 !important;
+  /* 主表格适配 */
+  center > table {
+    width: 95% !important;
+    max-width: 95%;
   }
-  center table td {
+
+  /* 主布局行：让侧边栏和内容区垂直堆叠 */
+  center > table > tr > td {
     display: block;
     width: 100% !important;
-    padding: 10px 8px !important;
   }
+
   /* 隐藏ASCII art在小屏幕上以节省空间 */
-  center table pre {
+  center > table pre {
     display: none;
   }
+
   /* 调整字体大小 */
-  center table font[size="5"] {
+  font[size="5"] {
     font-size: 22px !important;
   }
-  center table font[size="3"] {
+  font[size="3"] {
     font-size: 16px !important;
   }
 }
 
 /* 超小屏幕适配（手机竖屏） */
 @media screen and (max-width: 480px) {
-  center table {
-    border: 1px solid #600000 !important;
+  center > table {
+    width: 98% !important;
+    border-width: 2px !important;
   }
-  center table td {
+
+  center > table > tr > td {
     padding: 6px 4px !important;
   }
-  center table font[size="5"] {
+
+  font[size="5"] {
     font-size: 18px !important;
   }
-  center table font[size="3"] {
+  font[size="3"] {
     font-size: 14px !important;
   }
-  /* 压缩表格间距 */
-  center table table {
+
+  /* 内容表格适配：保持表格结构，但调整间距 */
+  table table {
     font-size: 12px;
+    width: 100% !important;
   }
-  center table table td,
-  center table table th {
+  table table td,
+  table table th {
     padding: 4px 2px !important;
+    word-wrap: break-word;
   }
+
   /* 增加链接可点击区域 */
-  center table a {
+  table a {
     display: inline-block;
     padding: 2px 0;
   }
