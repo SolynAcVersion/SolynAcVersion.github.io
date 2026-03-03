@@ -1,0 +1,1970 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<title>[山大][软院][2025级]Linux期末复习大纲</title>
+</head>
+<body text="#000000" link="#008800" vlink="#0037da" alink="#900000" bgcolor="#EEEEEE">
+<center>
+
+
+<table width="70%" cellspacing="4" cellpadding="12" border="3" bordercolor="#600000">
+
+<tr>
+<td width="210" bgcolor="#0000DE" valign="top">
+<font face="Courier New" color="#FFFFFF">
+<b><big>菜单</big></b><br>
+<hr size="1" noshade>
+<font color="#FFFFFF">
+▪ <a href="../index.html"><font color="#FFFFFF">首页</font></a><br>
+▪ <a href="../blog_idx.html"><font color="#FFFFFF">我的Blog</font></a><br>
+▪ <a href="../utility_idx.html"><font color="#FFFFFF">有趣线上小巧思</font></a><br>
+</font>
+<br>
+<b><big>联系我</big></b><br>
+<hr size="1" noshade>
+<font color="#FFFFFF">
+▪ <a href="https://github.com/SolynAcVersion"><font color="#FFFFFF">Github</font></a><br>
+▪ <a href="https://www.cnblogs.com/yldeveloper"><font color="#FFFFFF">博客园</font></a><br>
+▪ <a href="mailto:shengoovlei@gmail.com"><font color="#FFFFFF">邮箱</font></a><br>
+▪ <a href="https://space.bilibili.com/1798980964"><font color="#FFFFFF">Bilibili</font></a><br>
+▪ <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2161517829&amp;site=qq&amp;menu=yes"><font color="#FFFFC0">QQ - 请备注(⁎˃ᆺ˂)</font></a><br>
+</font>
+<br>
+</font>
+</td>
+
+<td bgcolor="#fffdfc" valign="top">
+<font face="Courier New" color="#000000">
+<b><big><font color="#0037da">Blog - [山大][软院][2025级]Linux期末复习大纲</font></big></b><br>
+<hr size="1" noshade>
+<br>
+<!-- 正文部分 -->
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr><td bgcolor="#0037da"><font size="5" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;Linux 期末总复习</font></td></tr>
+</table>
+<br>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="8">
+<tr><td bgcolor="#e8f4ff" bordercolor="#0037da" border="1">
+<font face="Arial, Helvetica, sans-serif" size="3">
+<b>写在前面：</b>本文几乎全部内容来自于对学长学姐遗留笔记的整理,在此感谢各位学长学姐的精心整理与无私馈赠！本文只是从我个人的视角对其进行了更细致的分类整理、通过自己实验命令补充等等。<br><br>
+本文仅供参考啊,我尽可能把能搜寻到的,不超纲很厉害的内容整理进来,当然一定会有遗漏错误,如果大家发现错误遗漏,非常感谢能够联系我 (๑˃̵ᴗ˂̵)！
+</font>
+</td></tr>
+</table>
+<br>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="8">
+<tr><td bgcolor="#fff8e8" bordercolor="#cc9900" border="1">
+<font face="Arial, Helvetica, sans-serif" size="3">
+<b>写在后面：</b>考完出成绩了,刚过A+线,排名啥不是很高,本来不是很想把这个内容再次细细整理、添加编辑发出来,但是感觉也能为大家提供复习的一点点便利。
+<br>毕竟几个压缩包里面多个文档反复提取去重还是有些麻烦（没有任何不好的意思！还是要感谢各位学长学姐的细心整理(๑╹ ╹)）,
+<br>所以又在里面添加了一些我们这届考试时这上面没有的一些内容,重新分类了一下,标记了一下重点,使用AI将原markdown改成了HTML,做了一些美化(当然依旧支持 HTML3.2)。
+<br>顺便在这里不是很有资格地简单评价一下：<br><br>
+<ul>
+<li>老师会狠捞,不用太过担心</li>
+<li>往届学长学姐都说 PPT 中会有原题,但我们这届貌似没有这么幸运。。。大家还是要以知识掌握为主啊！况且Linux在开发,乃至作为生活主力机都是很舒服的存在,加油学啊！</li>
+<li>其实Linux这个东东还是要在实际使用中学啊。当时候整理这查找那,写了这么多,一考试也是抛之于九霄云外了...现在把 Linux 当作了主力系统,花了功夫细学并用一个多月的 nvim,才感到能够参加考试了罢</li>
+</ul>
+</font>
+</td></tr>
+</table>
+
+<br><br><br><font size="5" >
+用⭐来标记重点内容(“重点”判断是基于考频,主观性较强,大家谨慎参考哦)
+<br><br><br></font>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;一个查询命令的命令 - man</font></td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="10" bgcolor="#f5f5f5" bordercolor="#cccccc">
+    <tr><td>
+    <font face="Courier New, monospace">
+    <b>man -k keyword</b> - 手册标题里面找"keyword"<br><br>
+    如查询命令 pwd 后输出：<br>
+    <code>pwd (1) - print name of current/working directory</code><br><br>
+    <b>操作：</b>b 向前翻页,f 向后翻页
+    </font>
+    </td></tr>
+    </table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;文件系统</font></td></tr>
+    </table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>系统目录</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#fafafa" bordercolor="#dddddd">
+    <tr><td><code>/</code></td><td>根目录,包含所有目录和文件</td></tr>
+    <tr><td><code>/bin</code></td><td>存放重要的Linux命令的可执行文件</td></tr>
+    <tr><td><code>/boot</code></td><td>存放用于启动Linux操作系统的所有文件</td></tr>
+    <tr><td><code>/dev</code></td><td>存放连接到计算机上的设备所对应的文件</td></tr>
+    <tr><td><code>/etc</code></td><td>存放和特定主机相关的文件和目录,包括系统配置文件</td></tr>
+    <tr><td><code>/home</code></td><td>一般用户的主目录所在位置</td></tr>
+    <tr><td><code>/proc</code></td><td>当前进程和系统的信息,仅存在内存</td></tr>
+    <tr><td><code>/tmp</code></td><td>临时目录,所有人都可读写</td></tr>
+    <tr><td><code>/usr</code></td><td>综合目录,存放用户使用的命令及应用程序</td></tr>
+    <tr><td><code>/sbin</code></td><td>存放用于系统管理的命令</td></tr>
+    <tr><td><code>/var</code></td><td>可变目录,用于存放变动比较频繁的文件；如：系统日志</td></tr>
+    <tr><td><code>/root</code></td><td>root用户主目录</td></tr>
+    <tr><td><code>/lib</code></td><td>共享库</td></tr>
+    <tr><td><code>/lost+found</code></td><td>存放文件系统检测产生的碎片文件</td></tr>
+    </table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>特殊设备文件</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#fff0e0" bordercolor="#ddaa77">
+    <tr><td><code>/dev/null</code></td><td>一个特殊的<b>空设备文件</b>,写不满,写入它的任何数据都会被<b>丢弃</b>,读取它会立即返回 EOF（文件结束符）</td></tr>
+    <tr><td><code>/dev/zero</code></td><td>读不完内容全零</td></tr>
+    <tr><td><code>/dev/urandom</code></td><td>内容随机</td></tr>
+    </table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>重要配置文件</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#f0fff0" bordercolor="#77dd77">
+    <tr><td><code>/etc/shadow</code></td><td>密码文件</td></tr>
+    <tr><td><code>/etc/passwd</code></td><td>用户数据库</td></tr>
+    <tr><td><code>/etc/sudoers</code></td><td>定义了哪些用户和组可以以root权限执行命令以及具体可以执行哪些命令</td></tr>
+    <tr><td><code>/etc/group</code></td><td>用户组定义文件。包含系统中所有组的信息,包括组名、组密码（通常不使用）、组ID和组成员列表</td></tr>
+    <tr><td><code>/usr/bin/</code></td><td>后天安装的程序（非linux自带命令,如gcc、g++）</td></tr>
+    <tr><td><code>/bin</code></td><td>Linux命令,如 ls、cp、mv、rm、bash 等</td></tr>
+    </table>
+    <br>
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>/tmp 目录特性</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#ffe8e8" bordercolor="#dd8888">
+    <tr><td>
+    <font face="Courier New, monospace">
+    /tmp 所有用户可读可写<br>
+    但是里面的文件都带有粘滞位（t）：用户只能删除自己创建的文件<br>
+    <code>drwxrwxrw<b>t</b></code>
+    </font>
+    </td></tr>
+    </table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>⭐文件类型</b></font>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6">
+    <tr><td bgcolor="#e8e8ff">Linux的三种基本的文件类型：普通文件、目录文件、设备文件</td></tr>
+    <tr><td>Linux中,设备被当成文件来处理</td></tr>
+    <tr><td bgcolor="#e8ffe8"><b>块设备：</b>以块为单位进行随机存取。常见块设备：软盘、光盘、硬盘</td></tr>
+    <tr><td><b>字符设备：</b>以单个字符为单位进行顺序存取。常见的字符设备：打印机、终端、键盘、鼠标</td></tr>
+    </table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>隐藏文件与保留词</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#ffffd0" bordercolor="#ccaa00">
+    <tr><td>
+    <font face="Courier New, monospace">
+    . 开头是隐藏文件<br>
+    拓展名是推荐的但不是必须的<br>
+    <b>保留词：</b><code>elif fi case esac coproc function !</code>
+    </font>
+    </td></tr>
+    </table>
+    <br>
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>文件系统类型</b></font>
+    <i>（知道Linux能用不能用什么文件系统类型就行了,这里提供拓展知识,了解即可）</i>
+    <br><br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#0037da"><td><font color="#FFFFFF" size="3"><b>文件系统</b></font></td><td><font color="#FFFFFF" size="3"><b>特点</b></font></td><td><font color="#FFFFFF" size="3"><b>适用场景</b></font></td></tr>
+    <tr bgcolor="#e8f4ff"><td><b>ext4</b><br><font size="2">（推荐大多数用户）</font></td>
+    <td>Linux默认和最成熟的文件系统,向后兼容ext2/ext3,支持最大16TB文件,1EB分区,日志功能确保数据一致性,性能稳定可靠</td>
+    <td>桌面系统、常规服务器,新手首选,兼容性最好,日常使用,通用需求</td></tr>
+    <tr bgcolor="#fff8e8"><td><b>XFS</b><br><font size="2">（推荐大文件/高性能需求）</font></td>
+    <td>高性能,特别擅长大文件处理,在线调整大小（只能增大,不能缩小）,优秀的并行I/O性能,延迟分配技术减少碎片</td>
+    <td>视频编辑、数据库服务器,大容量存储服务器,RHEL/CentOS/Fedora的默认选择</td></tr>
+    <tr bgcolor="#e8ffe8"><td><b>btrfs</b><br><font size="2">（推荐高级用户/需要高级功能）</font></td>
+    <td>写时复制(CoW)、快照功能,内置RAID支持、数据压缩,子卷管理、数据校验,在线碎片整理</td>
+    <td>需要系统快照和回滚功能,数据完整性要求高,实验性使用（部分发行版如openSUSE已作为默认）</td></tr>
+    <tr bgcolor="#ffe8e8"><td><b>ZFS</b><br><font size="2">（推荐专业存储服务器）</font></td>
+    <td>企业级功能：快照、克隆、数据去重,强大的RAID-Z、数据完整性校验,高内存需求,许可证可能不兼容,通常需要单独安装</td>
+    <td>NAS/存储服务器,企业级数据存储,需要高级存储功能</td></tr>
+    <tr bgcolor="#f0f0f0"><td><b>其他</b></td>
+    <td><b>FAT32/vFAT：</b>不要用于Linux系统安装,仅用于UEFI引导分区或Windows/Linux共享分区,不支持大文件(&gt;4GB),无权限管理<br><b>NTFS：</b>主要用于访问Windows分区,不适合安装Linux系统<br><b>ext2/ext3：</b>较旧版本,已基本被ext4替代</td>
+    <td>-</td></tr>
+    </table>
+    <br>
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>文件路径名特色</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#f0f0ff" bordercolor="#9999cc">
+    <tr><td>普通用户的用户主目录默认为：<code>/home/用户名</code>,可用 <code>~</code> 代表主目录</td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐cd - 切换工作目录</font></td></tr>
+    </table>
+    <font size="2">(Change Directory)</font><br><br>
+
+    <font size="3" color="#0037da"><b>基础用法：</b></font>
+    <ul>
+        <li><code>cd path</code> - 跳转到指定路径（可以是绝对路径或相对路径）</li>
+        <li><code>cd ~</code> 或 <code>cd</code> - 返回当前用户的主目录（home目录）</li>
+        <li><code>cd ..</code> - 返回上一级目录</li>
+        <li><code>cd -</code> - 返回上一次所在的目录</li>
+        <li><code>cd /</code> - 跳转到根目录</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    cd /home/user/documents    # 跳转到documents目录（绝对路径）<br>
+    cd ../                     # 返回上一级目录（相对路径）<br>
+    cd ~/Desktop               # 跳转到桌面目录<br>
+    cd -                       # 返回上一次所在的目录
+    </font>
+    </td></tr></table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;env - 显示或设置环境变量</font></td></tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>基础用法：</b></font>
+    <ul>
+        <li><code>env</code> - 显示所有环境变量</li>
+        <li><code>env | grep VAR</code> - 查找特定环境变量</li>
+        <li><code>env VAR=value command</code> - 临时设置环境变量并执行命令</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    env                        # 显示所有环境变量<br>
+    env | grep PATH            # 查找PATH环境变量<br>
+    env LANG=C ls              # 临时设置语言为英文并执行ls命令
+    </font>
+    </td></tr></table>
+    <br>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;pwd - 显示当前工作目录的完整路径</font></td></tr>
+    </table>
+    <font size="2">(Print Working Directory)</font><br><br>
+
+    <p>使用命令 pwd 可以显示当前工作目录。可以在任何时候使用pwd命令来判断你所在文件系统中的位置。</p>
+
+    <font size="3" color="#0037da"><b>基础用法：</b></font>
+    <ul>
+        <li><code>pwd</code> - 显示当前工作目录的完整路径</li>
+        <li><code>pwd -P</code> - 显示物理路径（不包含符号链接）</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    pwd                        # 输出：/home/user/documents<br>
+    cd /etc && pwd             # 输出：/etc<br>
+    cd - && pwd                # 返回并输出：/home/user/documents
+    </font>
+    </td></tr></table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐ls &amp;&amp; ll - 列出目录内容</font></td></tr>
+    </table>
+    <font size="2">(List)</font><br><br>
+
+    <font size="3" color="#0037da"><b>基础用法：</b></font>
+    <ul>
+        <li><code>ls</code> - 显示当前目录下的文件和目录</li>
+        <li><code>ls path</code> - 显示指定路径下的文件和目录</li>
+        <li><code>ls -a</code> - 列出所有文件,包括隐藏文件（以.开头的文件）</li>
+        <li><code>ls -l</code> - 以长格式显示详细信息（ll通常等同于ls -l）</li>
+        <li><code>ls -d</code> - 显示目录本身,而不显示其内容</li>
+        <li><code>ls -R</code> - 递归列出子目录的内容</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>常用组合：</b></font>
+    <ul>
+        <li><code>ls -la</code> - 显示所有文件（包括隐藏文件）的详细信息</li>
+        <li><code>ls -lh</code> - 以人类可读格式显示文件大小（如1K, 234M, 2G）</li>
+        <li><code>ls -lt</code> - 按修改时间排序,最新的在前</li>
+        <li><code>ls -lR</code> - 递归列出所有子目录的详细内容</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    ls                         # 显示当前目录内容<br>
+    ls /home/user              # 显示指定目录内容<br>
+    ls -la                     # 显示所有文件（包括隐藏文件）的详细信息<br>
+    ls -l *.txt                # 显示所有.txt文件的详细信息<br>
+    ls -d */                   # 列出当前目录下的所有目录
+    </font>
+    </td></tr></table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    ls *      # 不显示 .hidden 文件<br>
+    ls .*     # 显示隐藏文件（包括 . 和 ..,小心使用）<br>
+    ls .[!.]* # 显示隐藏文件,排除 . 和 ..
+    </font>
+    </td></tr></table>
+    <br>
+
+    <font size="3" color="#0037da"><b>ll输出的首字母含义：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td width="15%"><code>d</code></td><td>目录</td></tr>
+    <tr bgcolor="#ffffff"><td><code>-</code></td><td>普通文件</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>l</code></td><td>符号链接文件</td></tr>
+    <tr bgcolor="#ffffff"><td><code>b</code></td><td>块设备文件</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>c</code></td><td>字符设备文件</td></tr>
+    </table>
+    <font size="2"><i>三位为一组,每组分别代表文件属主、同组用户和其他用户</i></font>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐cp - 复制文件或目录</font></td></tr>
+    </table>
+    <font size="2">(Copy)</font><br><br>
+
+    <font size="3" color="#0037da"><b>基础用法：</b></font>
+    <ul>
+        <li><code>cp src_file dst_file</code> - 复制文件到目标位置</li>
+        <li><code>cp -i src_file dst_file</code> - 覆盖前询问确认</li>
+        <li><code>cp -r src_dir dst_dir</code> - 递归复制目录及其所有内容</li>
+        <li><code>cp -p file1 file2</code> - 复制时保留文件属性（权限、时间戳等）</li>
+        <li><code>cp file1 file2 dir/</code> - 复制多个文件到目录</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    cp file.txt backup.txt           # 复制并重命名文件<br>
+    cp file.txt ~/Documents/        # 复制文件到Documents目录<br>
+    cp -r mydir mydir_backup        # 递归复制整个目录<br>
+    cp -i file.txt existing.txt     # 如果existing.txt存在则询问<br>
+    cp -p file.txt file_copy.txt    # 复制并保留原文件属性<br>
+    cp ../d1 ./my1                  # 复制上一级d1目录到当前目录改名为my1
+    </font>
+    </td></tr></table>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#ffe8e8" bordercolor="#dd8888"><tr><td>
+    <font size="2"><b>注意：</b>不存在语法 <code>cp a &gt; b</code>（正确用法是 <code>cp a b</code>）</font>
+    </td></tr></table>
+    <br>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐mv - 移动或重命名文件/目录</font></td></tr>
+    </table>
+    <font size="2">(Move)</font><br><br>
+
+    <font size="3" color="#0037da"><b>基础用法：</b></font>
+    <ul>
+        <li><code>mv old_name new_name</code> - 重命名文件或目录</li>
+        <li><code>mv file dir/</code> - 移动文件到目录</li>
+        <li><code>mv -f file dir/</code> - 强制移动,覆盖前不询问</li>
+        <li><code>mv -i file dir/</code> - 覆盖前询问确认</li>
+        <li><code>mv dir1 dir2</code> - 如果dir2存在则移动dir1到dir2内,否则重命名dir1为dir2</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    mv file.txt newfile.txt           # 重命名文件<br>
+    mv file.txt ~/Documents/        # 移动文件到Documents目录<br>
+    mv -i file.txt existing.txt     # 如果目标存在则询问<br>
+    mv mydir ~/Documents/           # 移动目录到Documents下<br>
+    mv olddir newdir                # 重命名目录
+    </font>
+    </td></tr></table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;mkdir - 创建目录</font></td></tr>
+    </table>
+    <font size="2">(Make Directory)</font><br><br>
+
+    <font size="3" color="#0037da"><b>基础用法：</b></font>
+    <ul>
+        <li><code>mkdir dirname</code> - 创建单个目录</li>
+        <li><code>mkdir -p path/to/dir</code> - 递归创建目录,包括不存在的父目录</li>
+        <li><code>mkdir -m 755 dirname</code> - 创建目录并设置权限</li>
+        <li><code>mkdir dir1 dir2 dir3</code> - 同时创建多个目录</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    mkdir mydir                   # 创建目录mydir<br>
+    mkdir -p a/b/c               # 递归创建多层目录（a/b/c）<br>
+    mkdir -m 755 public_dir      # 创建权限为755的目录<br>
+    mkdir ~/Documents/{work,personal}  # 同时创建两个目录
+    </font>
+    </td></tr></table>
+    <br>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;rmdir - 删除空目录</font></td></tr>
+    </table>
+    <font size="2">(Remove Directory)</font><br><br>
+
+    <font size="3" color="#0037da"><b>基础用法：</b></font>
+    <ul>
+        <li><code>rmdir dirname</code> - 删除空目录（目录必须为空）</li>
+        <li><code>rmdir -p path/to/dir</code> - 递归删除多层空目录</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>注意：</b></font>
+    <ul>
+        <li>rmdir 只能删除空目录</li>
+        <li>删除目录时需要对父目录有写权限</li>
+        <li>如果目录不为空,需要先清空内容或使用 <code>rm -r</code></li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    rmdir empty_dir               # 删除空目录<br>
+    rmdir -p a/b/c               # 如果c、b、a都为空,则逐层删除<br>
+    # 错误示例：rmdir non_empty_dir  # 会报错,因为目录不为空
+    </font>
+    </td></tr></table>
+    <br>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;touch - 创建空文件或更新文件时间戳</font></td></tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>基础用法：</b></font>
+    <ul>
+        <li><code>touch filename</code> - 创建空文件或更新已存在文件的时间戳</li>
+        <li><code>touch -t [YY]MMDDhhmm filename</code> - 指定时间创建/更新文件</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    touch file.txt              # 创建空文件file.txt<br>
+    touch file1.txt file2.txt   # 同时创建多个文件<br>
+    touch -t 202312251200 file.txt  # 设置文件时间为2023年12月25日12:00
+    </font>
+    </td></tr></table>
+    <br>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#cc0000"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐rm - 删除文件或目录</font></td></tr>
+    </table>
+    <font size="2">(Remove) - <b>谨慎使用！</b></font><br><br>
+
+    <font size="3" color="#0037da"><b>基础用法：</b></font>
+    <ul>
+        <li><code>rm file</code> - 删除指定文件</li>
+        <li><code>rm -i file</code> - 删除前逐一询问确认</li>
+        <li><code>rm -r directory</code> - 递归删除目录及其内容</li>
+        <li><code>rm -f file</code> - 强制删除,不提示确认</li>
+        <li><code>rm -rf directory</code> - 强制递归删除目录（谨慎使用！）</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    rm file.txt                # 删除file.txt文件<br>
+    rm -i *.txt               # 删除所有.txt文件,删除前询问<br>
+    rm -r mydir               # 递归删除mydir目录及其内容<br>
+    rm -rf mydir              # 强制递归删除mydir（不询问,谨慎使用）
+    </font>
+    </td></tr></table>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#ffe8e8" bordercolor="#dd8888"><tr><td>
+    <font size="2"><b>警告：</b>rm -rf 命令非常危险,删除后无法恢复,使用时务必确认路径正确！</font>
+    </td></tr></table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;which &amp;&amp; whereis &amp;&amp; find &amp;&amp; locate - 文件查找命令</font></td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff">
+    <td width="20%"><b>which</b></td>
+    <td>
+    <b>作用：</b>在 PATH 环境变量定义的目录中搜索可执行文件的绝对路径<br><br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4"><tr><td bgcolor="#1a1a2e"><font face="Courier New, monospace" color="#00ff00" size="2">
+    $ which bash<br>
+    /usr/bin/bash
+    </font></td></tr></table>
+    </td>
+    </tr>
+    <tr bgcolor="#ffffff">
+    <td><b>whereis</b></td>
+    <td>
+    <b>作用：</b>搜索命令的二进制文件、手册页（man page）和源代码路径（基于预定义目录,如 /bin, /usr/include 等）<br><br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4"><tr><td bgcolor="#1a1a2e"><font face="Courier New, monospace" color="#00ff00" size="2">
+    $ whereis bash<br>
+    bash: /usr/bin/bash /usr/share/man/man1/bash.1.gz
+    </font></td></tr></table>
+    </td>
+    </tr>
+    <tr bgcolor="#e8f4ff">
+    <td><b>⭐find</b></td>
+    <td>
+    <b>作用：</b>在指定目录下递归搜索文件,支持复杂条件（文件名、类型、时间戳、权限等）<br><br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4"><tr><td bgcolor="#1a1a2e"><font face="Courier New, monospace" color="#00ff00" size="2">
+    $ find ./linuxLearning -name ".out"<br>
+    ./linuxLearning/a.out<br>
+    ./linuxLearning/main.out
+    </font></td></tr></table>
+    </td>
+    </tr>
+    <tr bgcolor="#ffffff">
+    <td><b>locate</b></td>
+    <td>
+    <b>作用：</b>基于预先生成的文件数据库（mlocate.db）快速搜索文件路径<br><br>
+    <i>需要先运行 updatedb 更新数据库</i>
+    </td>
+    </tr>
+    </table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐ln - 创建链接</font></td></tr>
+    </table>
+    <br>
+
+    <p>ln 用于对一个已经存在的文件再创建一个新的链接,而不复制文件的内容。ln后的链接文件名与物理文件具有相同的权限。</p>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff">
+    <td width="25%"><b>硬链接</b><br><code>ln src dst</code></td>
+    <td>
+    原文件名和链接文件名都指向相同的物理位址inode<br>
+    <ul>
+    <li>硬链接主要是增加一个文件的链接数,只要该文件的链接数不为 0,该文件就不会被物理删除</li>
+    <li>如果删除硬链接文件的源文件,硬链接文件仍然存在,而且保留了原有的内容</li>
+    <li>不允许对目录建立硬链接（软链接可以）</li>
+    <li>硬链接不能跨越文件系统（不能跨越不同的分区）</li>
+    </ul>
+    </td>
+    </tr>
+    <tr bgcolor="#fff8e8">
+    <td><b>符号链接（软链接）</b><br><code>ln -s src dst</code></td>
+    <td>
+    符号链接由于存放的是源文件的路径名,因而如果删除符号链接文件的源文件,符号链接文件将无法找到原有资料
+    </td>
+    </tr>
+    </table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6">
+    <tr><td bgcolor="#0037da"><font size="5" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;用户系统</font></td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#ffffd0" bordercolor="#ccaa00"><tr><td>
+    <font face="Courier New, monospace"><b>root 用户有系统的最大权限</b></font>
+    </td></tr></table>
+    <br>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;w &amp;&amp; who &amp;&amp; whoami - 查看登录用户</font></td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff">
+    <td width="20%"><b>w</b></td>
+    <td>显示当前登录用户及他们正在运行的程序<br><br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4"><tr><td bgcolor="#1a1a2e"><font face="Courier New, monospace" color="#00ff00" size="2">
+    $ w<br>
+    11:12:27 up 17 min,  1 user,  load average: 0.00, 0.00, 0.00<br>
+    USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT<br>
+    ren      pts/1    -                00:01   11:11m  0.03s  0.02s -bash
+    </font></td></tr></table>
+    </td>
+    </tr>
+    <tr bgcolor="#ffffff">
+    <td><b>who</b></td>
+    <td>显示当前登录的用户信息<br><br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4"><tr><td bgcolor="#1a1a2e"><font face="Courier New, monospace" color="#00ff00" size="2">
+    $ who<br>
+    ren      pts/1        2025-12-20 00:01
+    </font></td></tr></table>
+    </td>
+    </tr>
+    <tr bgcolor="#e8f4ff">
+    <td><b>whoami</b></td>
+    <td>显示当前用户名<br><br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4"><tr><td bgcolor="#1a1a2e"><font face="Courier New, monospace" color="#00ff00" size="2">
+    $ whoami<br>
+    ren
+    </font></td></tr></table>
+    </td>
+    </tr>
+    </table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐chmod - 改变文件或目录的权限</font></td></tr>
+    </table>
+    <font size="2">(Change Mode)</font><br><br>
+
+    <font size="3" color="#0037da"><b>权限表示：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td width="15%"><b>u</b> (user)</td><td>文件所有者</td></tr>
+    <tr bgcolor="#ffffff"><td><b>g</b> (group)</td><td>同组用户</td></tr>
+    <tr bgcolor="#e8f4ff"><td><b>o</b> (others)</td><td>其他用户</td></tr>
+    <tr bgcolor="#ffffff"><td><b>a</b> (all)</td><td>所有用户（ugo的总和）</td></tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>权限类型：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td width="15%"><b>r</b> (read)</td><td>读权限 = 4</td></tr>
+    <tr bgcolor="#ffffff"><td><b>w</b> (write)</td><td>写权限 = 2</td></tr>
+    <tr bgcolor="#e8f4ff"><td><b>x</b> (execute)</td><td>执行权限 = 1</td></tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>常用权限值：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td><code>777</code></td><td>rwxrwxrwx（所有用户完全权限,不安全）</td></tr>
+    <tr bgcolor="#ffffff"><td><code>755</code></td><td>rwxr-xr-x（所有者完全权限,其他用户只读执行）</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>644</code></td><td>rw-r--r--（所有者读写,其他用户只读）</td></tr>
+    <tr bgcolor="#ffffff"><td><code>600</code></td><td>rw-------（只有所有者可读写）</td></tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>基础用法：</b></font>
+    <ul>
+        <li><code>chmod 755 file</code> - 数字方式设置权限（rwxr-xr-x）</li>
+        <li><code>chmod u+x file</code> - 为所有者添加执行权限</li>
+        <li><code>chmod g-w file</code> - 移除组用户的写权限</li>
+        <li><code>chmod o=r file</code> - 设置其他用户只读</li>
+        <li><code>chmod a+x file</code> - 为所有用户添加执行权限</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    chmod 755 script.sh           # 设置脚本为可执行<br>
+    chmod u+x file.txt            # 为所有者添加执行权限<br>
+    chmod g-w,o-r file.txt        # 移除组写权限和其他用户读权限<br>
+    chmod a+rwx file.txt          # 为所有用户添加完全权限<br>
+    chmod u=rw,go=r file.txt      # 所有者读写,其他用户只读<br>
+    chmod +t /tmp/shared          # 设置粘滞位
+    </font>
+    </td></tr></table>
+    <br>
+
+    <font size="3" color="#0037da"><b>权限详解：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#f5f5f5" bordercolor="#cccccc">
+    <tr><td>
+    <font face="Courier New, monospace" size="2">
+    <b>权限值计算：</b><br>
+    r = 100 = 4 | w = 010 = 2 | x = 001 = 1 | - = 000 = 0
+    </font>
+    </td></tr>
+    <tr><td>
+    <font face="Courier New, monospace" size="2">
+    <b>目录操作权限：</b><br>
+    - ls列目录：要有目录的读权限<br>
+    - 进入目录(cd)：要有目录的执行权限<br>
+    - 在目录下增删文件、子目录：要有目录的写、执行权限（touch,rm,mkdir,rmdir）
+    </font>
+    </td></tr>
+    <tr><td>
+    <font face="Courier New, monospace" size="2">
+    <b>复制文件至另一个文件夹：</b><br>
+    - 源文件：r<br>
+    - 源目录：x<br>
+    - 目标目录：wx
+    </font>
+    </td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#ffffd0" bordercolor="#ccaa00">
+    <tr><td>
+    <font size="3"><b>特殊的：粘滞位 (Sticky Bit)</b></font><br><br>
+    <font face="Courier New, monospace" size="2">
+    删除或移动权限：文件的所有者、目录的所有者、root用户<br>
+    但不限制用户对它的修改<br><br>
+    <b>设置粘滞位：</b><br>
+    chmod +t<br>
+    chmod 1755<br><br>
+    <b>移除粘滞位：</b><br>
+    chmod -t
+    </font>
+    </td></tr>
+    </table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;su &amp;&amp; sudo - 用户权限切换</font></td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff">
+    <td width="25%"><b>su (Switch User)</b></td>
+    <td>
+    切换用户<br>
+    <code>su</code> 仅仅取得root权限,工作环境不变<br>
+    <code>su - USERNAME</code> - 完整切换用户环境
+    </td>
+    </tr>
+    <tr bgcolor="#ffffff">
+    <td><b>sudo (SuperUser DO)</b></td>
+    <td>
+    提权<br>
+    sudo 是完全取得root的权限和root的工作环境<br>
+    <code>sudo -u USERNAME COMMAND</code> - 以指定用户身份执行命令
+    </td>
+    </tr>
+    </table>
+    <br>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;chown - 改变文件或目录的所有者和所属组</font></td></tr>
+    </table>
+    <font size="2">(Change Owner)</font><br><br>
+
+    <font size="3" color="#0037da"><b>基础用法：</b></font>
+    <ul>
+        <li><code>chown user file</code> - 改变文件所有者</li>
+        <li><code>chown user:group file</code> - 同时改变所有者和所属组</li>
+        <li><code>chown :group file</code> - 只改变所属组</li>
+        <li><code>chown -R user directory</code> - 递归改变目录及其内容的所有者</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    sudo chown john file.txt                 # 将file.txt的所有者改为john<br>
+    sudo chown john:developers file.txt      # 同时改变所有者为john,组为developers<br>
+    sudo chown :staff file.txt               # 只将所属组改为staff<br>
+    sudo chown -R john:users /home/john/data # 递归改变目录所有权
+    </font>
+    </td></tr></table>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#ffe8e8" bordercolor="#dd8888"><tr><td>
+    <font size="2"><b>注意：</b>chown 需要 root 权限,通常需要使用 sudo</font>
+    </td></tr></table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6">
+    <tr><td bgcolor="#0037da"><font size="5" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐进程系统</font></td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#e8f4ff" bordercolor="#0037da">
+    <tr><td>
+    <font size="3"><b>进程和线程：</b></font><br>
+    <ul>
+    <li><b>进程</b>是资源分配的基本单位</li>
+    <li><b>线程</b>是调度的基本单位</li>
+    <li>进程有独立的地址空间,一个进程崩溃后,在保护模式下不会对其它进程产生影响</li>
+    <li>线程只是一个进程中的不同执行路径,线程有自己的堆栈和局部变量,但线程之间没有单独的地址空间</li>
+    <li>一个程序至少有一个进程,一个进程至少有一个线程</li>
+    </ul>
+    </td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#ffffd0" bordercolor="#ccaa00">
+    <tr><td>
+    <font face="Courier New, monospace" size="2">
+    <b>init 进程</b>（现代 Ubuntu 是 systemd）<br>
+    - 内核启动后的第一个进程,其 PID=1<br>
+    - 扮演终结父进程的角色,所有进程追溯其祖先最终都会落到 init 进程身上<br>
+    - init -> login -> passwd -> shell
+    </font>
+    </td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;ps - 列出当前进程清单</font></td></tr>
+    </table>
+    <br>
+
+    <p>ps 用于列出当前进程清单。它显示的进程列表是一个静态列表,也就是说,这个列表是在我们启动这个命令时正在运行的进程的快照。</p>
+    <br>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;top - 交互式查看进程</font></td></tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>常用选项：</b></font>
+    <ul>
+    <li><code>d delay</code> - 指定更新的时间间隔(delay),以秒计算</li>
+    <li><code>n</code> - 指定更新的次数,到达指定次数后将会退出top</li>
+    </ul>
+    <br>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;jobs - 显示和控制后台任务</font></td></tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>常用选项：</b></font>
+    <ul>
+    <li><code>-l</code> - 显示后台任务的进程号与信息</li>
+    <li><code>-p</code> - 只显示后台任务的 PID</li>
+    <li><code>-n</code> - 显示上次通知用户后,执行状态有更动的后台任务状态</li>
+    <li><code>-r</code> - 显示执行中的后台任务</li>
+    <li><code>-s</code> - 显示暂停执行的后台任务</li>
+    </ul>
+    <br>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;kill - 向进程发送信号</font></td></tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>语法：</b></font>
+    <code>kill [-option] [signal] {PID | %job ID}</code><br><br>
+
+    <font size="3" color="#0037da"><b>参数说明：</b></font>
+    <ul>
+    <li><code>signal</code> - 信号,与-s配合使用。不指定则送出信号 15 (TERM)</li>
+    <li><code>pid</code> - 要终止的进程号</li>
+    <li><code>job ID</code> - 要终止的进程对应的后台任务编号</li>
+    <li><code>-s</code> - 指定需要送出的信号,既可以是信号名也可以是对应数字</li>
+    </ul>
+
+    <p><i>如 <code>kill %1</code> 自动使用信号"TERMINATE",终结的是 JobID=1</i></p>
+    <br>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;nohup - 使进程在用户退出后继续执行</font></td></tr>
+    </table>
+    <br>
+
+    <p>用户退出系统时,一般来说会结束该用户的所有正在运行的程序。如果某些后台程序没有执行完,可以使用 nohup。</p>
+    <br>
+
+    <font size="3" color="#0037da"><b>格式：</b></font>
+    <code>nohup {command|script} &</code><br><br>
+
+    <font size="3" color="#0037da"><b>参数说明：</b></font>
+    <ul>
+    <li><code>command</code> - 命令</li>
+    <li><code>script</code> - 程序或脚本</li>
+    <li><code>{a|b}</code> - a和b中必选一项</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#e8ffe8" bordercolor="#77dd77">
+    <tr><td>
+    <font size="3"><b>题目：</b>将程序 <code>server</code> 放到后台运行,并使其在关闭终端后仍继续运行。<br><br>
+    <b>答案：</b><code>nohup server &</code></font>
+    </td></tr>
+    </table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6">
+    <tr><td bgcolor="#0037da"><font size="5" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;文本系统</font></td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;wc - 统计文件中的字符数、单词数和行数</font></td></tr>
+    </table>
+    <font size="2">(Word Count)</font><br><br>
+
+    <font size="3" color="#0037da"><b>基础用法：</b></font>
+    <ul>
+        <li><code>wc file</code> - 显示文件的行数、单词数、字节数</li>
+        <li><code>wc -l file</code> - 只显示行数</li>
+        <li><code>wc -w file</code> - 只显示单词数</li>
+        <li><code>wc -c file</code> - 只显示字节数</li>
+        <li><code>wc -m file</code> - 只显示字符数</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    wc file.txt                 # 输出：10  50 300 file.txt（行数 单词数 字节数）<br>
+    wc -l file.txt              # 只显示行数：10<br>
+    wc -w *.txt                 # 统计所有.txt文件的单词数<br>
+    cat file.txt | wc -l        # 统计文件行数（通过管道）<br>
+    ls | wc -l                  # 统计当前目录下的文件/目录数量
+    </font>
+    </td></tr></table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐vi/vim - 文本编辑器</font></td></tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>vim 的三种模式：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td width="30%"><b>命令模式 (Command Mode)</b></td><td>vim启动后的默认模式,用于移动光标、删除、复制、粘贴等操作</td></tr>
+    <tr bgcolor="#ffffff"><td><b>插入模式 (Insert Mode)</b></td><td>用于输入和编辑文本内容,按i、a、o等键进入</td></tr>
+    <tr bgcolor="#e8f4ff"><td><b>末行模式/底行模式 (Last Line Mode)</b></td><td>用于保存、退出、搜索替换等操作,按:键进入</td></tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>模式切换：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#f5f5f5" bordercolor="#cccccc">
+    <tr><td>命令模式 &rarr; 插入模式</td><td>按i（在光标前插入）、a（在光标后插入）、o（在下方新建行插入）</td></tr>
+    <tr><td>插入模式 &rarr; 命令模式</td><td>按Esc键</td></tr>
+    <tr><td>命令模式 &rarr; 末行模式</td><td>按:键</td></tr>
+    <tr><td>末行模式 &rarr; 命令模式</td><td>执行命令后自动返回,或按Esc取消</td></tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>vi 选项：</b></font>
+    <code>vi [-options] [+n] [file]</code>
+    <ul>
+        <li><code>-r</code> - 恢复系统突然崩溃时正在编辑的文件</li>
+        <li><code>-R</code> - 以只读方式打开文件</li>
+        <li><code>+n</code> - 指明进入vi后直接位于文件的第n行,如果只有"+"而不指定n,则光标位于文本的最后一行</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>替换命令：</b></font>
+    <code>[n1, n2]s/str1/str2/[g][c]</code><br>
+    <i>在第n1行到n2行的范围内将字符串str1用str2代替</i>
+    <ul>
+        <li><code>c</code> - 每次替换都由用户确认</li>
+        <li><code>g</code> - 对行中搜索字符串的每次出现进行替换</li>
+        <li>不加g - 只对行中搜索字符串的首次出现进行替换</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>撤销和显示当前状态（命令模式）：</b></font>
+    <ul>
+        <li>撤销上一命令结果：<code>u</code></li>
+        <li>显示当前编辑文本的状态：<code>Ctrl-g</code>（包括文本共有多少行、文件名以及目前光标停在多少行）</li>
+    </ul>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;cat - 显示文件内容或连接文件</font></td></tr>
+    </table>
+    <font size="2">(Concatenate)</font><br><br>
+
+    <font size="3" color="#0037da"><b>基础用法：</b></font>
+    <ul>
+        <li><code>cat file</code> - 显示文件全部内容</li>
+        <li><code>cat -n file</code> - 显示内容并打印行号</li>
+        <li><code>cat -b file</code> - 显示内容,非空行打印行号</li>
+        <li><code>cat file1 file2 &gt; file3</code> - 合并file1和file2的内容到file3</li>
+        <li><code>cat file1 &gt; file2</code> - 复制file1内容到file2</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    cat file.txt                      # 显示文件全部内容<br>
+    cat -n file.txt                   # 显示文件内容并标注行号<br>
+    cat file1.txt file2.txt &gt; combined.txt  # 合并两个文件<br>
+    cat a &gt; b                        # 复制文件a到文件b
+    </font>
+    </td></tr></table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff">
+    <td width="20%"><b>more</b></td>
+    <td>
+    <b>分屏显示文件内容</b><br><br>
+    基础用法：<code>more file</code><br><br>
+    <b>操作键：</b><br>
+    - 空格键：向下翻一页<br>
+    - Enter键：向下翻一行<br>
+    - b键：向上翻一页<br>
+    - q键：退出
+    </td>
+    </tr>
+    <tr bgcolor="#ffffff">
+    <td><b>less</b></td>
+    <td>
+    <b>更灵活的分页查看工具（支持上下翻页）</b><br><br>
+    基础用法：<code>less file</code> 或 <code>less +F file</code>（类似tail -f）<br><br>
+    <b>操作键：</b><br>
+    - 空格/PageDown：向下翻页<br>
+    - PageUp/b：向上翻页<br>
+    - ↑/↓：上下滚动一行<br>
+    - /pattern：向下搜索pattern<br>
+    - ?pattern：向上搜索pattern<br>
+    - n：下一个搜索结果<br>
+    - N：上一个搜索结果<br>
+    - q：退出<br><br>
+    <i>more只能向下翻页,less支持上下翻页和搜索,功能更强大</i>
+    </td>
+    </tr>
+    </table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐grep - 在文件中搜索匹配的文本行</font></td></tr>
+    </table>
+    <font size="2">(Global Regular Expression Print)</font><br><br>
+
+    <font size="3" color="#0037da"><b>基础用法：</b></font>
+    <ul>
+        <li><code>grep pattern file</code> - 在文件中搜索匹配pattern的行</li>
+        <li><code>grep -i pattern file</code> - 忽略大小写搜索</li>
+        <li><code>grep -r pattern dir/</code> - 递归搜索目录中的所有文件</li>
+        <li><code>grep -n pattern file</code> - 显示匹配行及行号</li>
+        <li><code>grep -v pattern file</code> - 显示不匹配的行</li>
+        <li><code>grep -c pattern file</code> - 只输出匹配行的计数</li>
+        <li><code>command | grep pattern</code> - 过滤命令输出</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>常用选项：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td width="15%"><code>-i</code></td><td>忽略大小写</td></tr>
+    <tr bgcolor="#ffffff"><td><code>-v</code></td><td>反向匹配（显示不匹配的行）</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>-r</code></td><td>递归搜索目录</td></tr>
+    <tr bgcolor="#ffffff"><td><code>-n</code></td><td>显示行号</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>-c</code></td><td>统计匹配行数</td></tr>
+    <tr bgcolor="#ffffff"><td><code>-l</code></td><td>只显示包含匹配内容的文件名</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>-E</code></td><td>使用扩展正则表达式</td></tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    grep "hello" file.txt         # 在file.txt中搜索"hello"<br>
+    grep -i "error" log.txt       # 忽略大小写搜索"error"<br>
+    grep -r "TODO" ./src          # 递归搜索src目录中的"TODO"<br>
+    grep -n "main" *.c            # 在所有.c文件中搜索"main"并显示行号<br>
+    grep -v "^#" config.conf      # 显示不以#开头的行（过滤注释）<br>
+    ps aux | grep nginx           # 过滤进程列表中的nginx
+    </font>
+    </td></tr></table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;head &amp;&amp; tail - 查看文件开头/结尾内容</font></td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff">
+    <td width="20%"><b>head</b></td>
+    <td>
+    显示文件开头内容<br><br>
+    <b>基础用法：</b><br>
+    - <code>head file</code> - 显示文件前10行（默认）<br>
+    - <code>head -n 20 file</code> - 显示文件前20行<br>
+    - <code>head -n 5 file</code> - 查看file.txt前5行
+    </td>
+    </tr>
+    <tr bgcolor="#ffffff">
+    <td><b>tail</b></td>
+    <td>
+    显示文件结尾内容<br><br>
+    <b>基础用法：</b><br>
+    - <code>tail file</code> - 显示文件后10行（默认）<br>
+    - <code>tail -n 20 file</code> - 显示文件后20行<br>
+    - <code>tail -f file</code> - 实时监控文件变化（常用于查看日志）<br>
+    - 按 Ctrl+C 退出
+    </td>
+    </tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    head /etc/passwd                        # 查看passwd文件前10行<br>
+    head -n 5 file.txt                      # 查看file.txt前5行<br>
+    tail /var/log/syslog                    # 查看系统日志后10行<br>
+    tail -n 20 file.txt                     # 查看file.txt后20行<br>
+    tail -f /var/log/nginx/access.log       # 实时监控nginx访问日志（Ctrl+C退出）
+    </font>
+    </td></tr></table>
+    <hr>
+    <p>加一个正则表达式的例子：<br>
+    grep "^[0-9].*.$"<br>
+    1. <b>`^`</b> - 匹配行首<br>
+    2. <b>`[0-9]`</b> - 匹配任意一个数字（0-9）<br>
+    3. <b>`.*`</b> - 匹配任意数量的任意字符（除换行符外）<br>
+        - `.` 表示任意单个字符<br>
+        - `*` 表示前面的字符出现0次或多次<br>
+    4. <b>`.`</b> - 匹配字面的句点（.）<br>
+        - 反斜杠 `` 用于转义,因为 `.` 在正则中有特殊含义（匹配任意字符）<br>
+    5. <b>`$`</b> - 匹配行尾<br>
+    即以数字开头,中间有任意内容,以句点结尾的行</p>
+    <p>如果没有匹配文件,通配符保持原样<br>
+    <code>echo *.nonexistent   # 输出：*.nonexistent</code><br>
+    并且引号会阻止拓展（单、双引号均可）</p>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6">
+    <tr><td bgcolor="#0037da"><font size="5" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐SHELL 基础</font></td></tr>
+    </table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>()、$()、$(()) 的区别</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td><code>()</code></td><td>命令分组 - 在子shell中执行命令</td></tr>
+    <tr bgcolor="#ffffff"><td><code>$()</code></td><td>执行括号内的命令,用输出结果替代整个表达式</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>$(())</code></td><td>算数扩展,等同于 $[]</td></tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    # () : 命令分组<br>
+    (cd /tmp &amp;&amp; ls)  # 在子shell中改变目录,不影响当前目录<br>
+    echo $PWD        # 仍然是原来的目录,不会变成/tmp<br>
+    <br>
+    # $() : 执行括号内的命令,用输出结果替代整个表达式<br>
+    CURRENT_DATE=$(date)<br>
+    echo "今天是：$CURRENT_DATE"<br>
+    <br>
+    # $(()) : 算数拓展,等同于 $[]<br>
+    echo $(( 5 + 3 ))<br>
+    COUNT=5<br>
+    echo $(( COUNT * 2 ))
+    </font>
+    </td></tr></table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#f0f0ff" bordercolor="#9999cc">
+    <tr><td>
+    <font face="Courier New, monospace" size="2">
+    <b>通配符扩展示例：</b><br>
+    当前目录下只有文件 <code>abc123</code>：<br>
+    - <code>echo abc*</code>：输出 <code>abc123</code>（通配符 <code>*</code> 扩展为匹配的文件名）<br>
+    - <code>echo xyz=abc*</code>：输出 <code>xyz=abc*</code>（通配符同样扩展）<br><br>
+    如果没有匹配文件,通配符保持原样：<br>
+    <code>echo *.nonexistent</code>  # 输出：*.nonexistent<br>
+    引号会阻止扩展（单、双引号均可）
+    </font>
+    </td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#ffffd0" bordercolor="#ccaa00">
+    <tr><td>
+    <font size="3"><b>变量替换：</b></font><code>var=$(command)</code><br><br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4"><tr><td bgcolor="#1a1a2e"><font face="Courier New, monospace" color="#00ff00" size="2">
+    $ tms=$(date +%Y-%m-%d)<br>
+    $ echo $tms<br>
+    2025-12-17
+    </font></td></tr></table>
+    </td></tr>
+    </table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐几个引号的区别</font></td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff">
+    <td width="20%"><b>单引号</b><br><code>'</code></td>
+    <td>单引号括起来的所有字符都作为普通字符出现</td>
+    </tr>
+    <tr bgcolor="#ffffff">
+    <td><b>双引号</b><br><code>"</code></td>
+    <td>由双引号括起来的字符,<b>除$,\,',",`几种符号具有其特殊功能外</b>,其余字符都作为普通字符对待</td>
+    </tr>
+    <tr bgcolor="#e8f4ff">
+    <td><b>反引号</b><br><code>`</code></td>
+    <td>反引号括起来的内容被Shell解释为命令行,执行时Shell首先执行该命令行,并用它的标准输出结果取代整个反引号（包括反引号括起来的部分）。反引号可以嵌套使用,但是内层的反引号需要用\转义</td>
+    </tr>
+    <tr bgcolor="#ffffff">
+    <td><b>反斜线</b><br><code>\</code></td>
+    <td>如果下一个字符有特殊含义,反斜线屏蔽其特殊含义。有特殊含义的字符包括 &amp; * + ^ $ ` " | ? 这几种</td>
+    </tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    $ echo '$HOME'<br>
+    $HOME<br>
+    <br>
+    $ echo "$HOME"<br>
+    /home/ren<br>
+    <br>
+    $ echo `$HOME`<br>
+    -bash: /home/ren: Is a directory<br>
+    <br>
+    $ echo a`echo b`<br>
+    ab
+    </font>
+    </td></tr></table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>⭐通配符</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td><code>*</code></td><td>可以匹配文件名中的任何字符串</td></tr>
+    <tr bgcolor="#ffffff"><td><code>?</code></td><td>可以匹配文件名中的任何单个字符</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>[...]</code></td><td>匹配方括号中指定范围内的字符（可以使用横杠-来连接两个字母或数字,以表示范围）</td></tr>
+    <tr bgcolor="#ffffff"><td><code>[!...]</code></td><td>匹配不在指定范围内的任何字符</td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#ffe8e8" bordercolor="#dd8888"><tr><td>
+    <font size="2"><b>注意：</b><code>echo "a*"</code>、<code>echo "a?"</code>等塞到引号里面的都不行（不会进行通配符扩展）</font>
+    </td></tr></table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐管道 (Pipe)</font></td></tr>
+    </table>
+    <br>
+
+    <p>把一个命令在屏幕上的输出传递给另一个命令作为输入。用竖杠 | 表示。</p>
+
+    <font size="3" color="#0037da"><b>一般形式：</b></font>
+    <code>命令1 | 命令2</code>
+    <br><br>
+
+    <font size="3" color="#0037da"><b>管道的多个实例：</b></font>
+    <ul>
+        <li><b>简单管道：</b><code>command1 | command2</code> - 将command1的输出传递给command2</li>
+        <li><b>多级管道：</b><code>command1 | command2 | command3</code> - 可以连续使用多个管道</li>
+        <li><b>管道与重定向结合：</b><code>command1 | command2 &gt; file</code> - 将最终结果输出到文件</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>常用示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    ps aux | grep nginx                      # 查找nginx进程<br>
+    cat file.txt | grep "error" | wc -l      # 统计包含error的行数<br>
+    ls -l | grep "^d"                        # 只列出目录<br>
+    find . -name "*.log" | xargs grep "ERROR"  # 查找日志中的ERROR<br>
+    history | grep "git" | tail -10          # 查看最近10条git命令
+    </font>
+    </td></tr></table>
+    <br>
+
+    <font size="3" color="#0037da"><b>注意事项：</b></font>
+    <ul>
+        <li>管道只传递标准输出(stdout),错误输出(stderr)不会被传递</li>
+        <li>使用 <code>command1 2&gt;&amp;1 | command2</code> 可以将错误输出也通过管道传递</li>
+        <li>管道中的每个命令都在独立的子进程中执行</li>
+    </ul>
+    <br>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐echo $? - 检验退出状态</font></td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#e8ffe8" bordercolor="#77dd77">
+    <tr><td>
+    <font size="3"><b>退出状态：</b></font><br>
+    成功执行：<code>0</code><br>
+    失败执行：<code>非0值</code>
+    </td></tr>
+    </table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐逻辑、数学运算</font></td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td width="30%"><code>命令1 &amp;&amp; 命令2</code></td><td>只有命令1为真（即成功被执行,返回0）,命令2才能够被执行</td></tr>
+    <tr bgcolor="#ffffff"><td><code>命令1 || 命令2</code></td><td>如果命令1执行失败,那么就执行命令2</td></tr>
+    </table>
+    <br>
+
+    <p>Shell的算术扩展：<code>$((exp))</code> - 提供变量的整数运算机制</p>
+
+    <font size="3" color="#0037da"><b>expr 命令示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    # 错误示例<br>
+    $ expr `expr 2+4`/5<br>
+    2+4/5<br>
+    <br>
+    # 正确示例<br>
+    $ expr `expr 2 + 4` / 5<br>
+    1
+    </font>
+    </td></tr></table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#ffffd0" bordercolor="#ccaa00"><tr><td>
+    <font size="2"><b>注意：</b><code>expr</code>必须要有空格,并且涉及 &lt;、&gt;、|、&amp;、* 需要在前面加上 \</font>
+    </td></tr></table>
+    <br>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐条件运算符 &amp;&amp; test</font></td></tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>语法：</b></font>
+    <ul>
+    <li><code>test expression</code></li>
+    <li><code>[ expression ]</code></li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>注意事项：</b></font>
+    <ul>
+    <li>使用方括号时,要注意在条件两边加上空格,因为 [ 符号其实是一个命令（程序）,而 ] 是一个参数</li>
+    <li>涉及到变量值（$variable）的比较时最好把变量取值用双引号括起来,以免Shell误解变量值</li>
+    <li>测试结果反映在退出状态中,而不是直接显示输出</li>
+    <li>条件为真 &rarr; 退出状态为0</li>
+    <li>条件为假 &rarr; 退出状态非0</li>
+    </ul>
+
+    <font size="3" color="#0037da"><b>数值比较运算符：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td><code>-eq</code></td><td>数值相等</td></tr>
+    <tr bgcolor="#ffffff"><td><code>-ne</code></td><td>数值不等</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>-lt</code></td><td>小于</td></tr>
+    <tr bgcolor="#ffffff"><td><code>-gt</code></td><td>大于</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>-le</code></td><td>小于等于</td></tr>
+    <tr bgcolor="#ffffff"><td><code>-ge</code></td><td>大于等于</td></tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>逻辑操作符：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td><code>-a</code></td><td>逻辑与 (AND)</td></tr>
+    <tr bgcolor="#ffffff"><td><code>-o</code></td><td>逻辑或 (OR)</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>!</code></td><td>逻辑非 (NOT)</td></tr>
+    </table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐for &amp;&amp; while &amp;&amp; if - 流程控制</font></td></tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>示例：在根目录下filedir目录创建100个文件</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    # 在执行前先确定有没有该目录,如果没有这个目录则创建,有则不执行<br>
+    text=/filedir<br>
+    [ ! -d $text ] &amp;&amp; mkdir $text  # 检查目录是否存在并创建<br>
+    <br>
+    for I in {1..100}<br>
+    do<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;touch ${text}/hehe$I<br>
+    done
+    </font>
+    </td></tr></table>
+    <br>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;until 循环</font></td></tr>
+    </table>
+    <br>
+
+    <p>循环直到条件成立</p>
+
+    <font size="3" color="#0037da"><b>语法：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    until []<br>
+    do<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;# 命令<br>
+    done<br>
+    <br>
+    # 或者是（如果和 do 写在一行要加上 ;）<br>
+    until []; do<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;# 命令<br>
+    done
+    </font>
+    </td></tr></table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6">
+    <tr><td bgcolor="#0037da"><font size="5" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐编程真题</font></td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#ffffd0" bordercolor="#ccaa00"><tr><td>
+    <font size="2"><b>注意：</b>"接收两个数字"即接受的是参数</font>
+    </td></tr></table>
+    <br>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐执行 .shell 脚本的几种方式</font></td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff">
+    <td width="25%"><code>./script.sh</code></td>
+    <td>
+    <b>最常用的方式</b><br>
+    - 需要文件有执行权限（chmod +x script.sh）<br>
+    - 在当前shell的<b>子shell</b>中执行<br>
+    - 脚本中设置的变量不会影响当前shell
+    </td>
+    </tr>
+    <tr bgcolor="#ffffff">
+    <td><code>bash script.sh</code></td>
+    <td>
+    <b>使用bash解释器执行</b><br>
+    - 不需要执行权限<br>
+    - 在子shell中执行<br>
+    - 可以明确指定解释器（sh、zsh等）
+    </td>
+    </tr>
+    <tr bgcolor="#e8f4ff">
+    <td><code>source script.sh</code><br>或<br><code>. script.sh</code></td>
+    <td>
+    <b>在当前shell中执行</b><br>
+    - 不需要执行权限<br>
+    - 脚本中设置的变量<b>会影响当前shell</b><br>
+    - 常用于加载配置文件（如 .bashrc）
+    </td>
+    </tr>
+    <tr bgcolor="#ffffff">
+    <td><code>./script.sh &</code></td>
+    <td>
+    <b>后台执行</b><br>
+    - 需要执行权限<br>
+    - 在后台子shell中执行<br>
+    - 立即返回终端控制权
+    </td>
+    </tr>
+    <tr bgcolor="#e8f4ff">
+    <td><code>nohup ./script.sh &</code></td>
+    <td>
+    <b>后台执行且忽略挂起信号</b><br>
+    - 用户退出后脚本仍继续运行<br>
+    - 输出默认重定向到 nohup.out<br>
+    - 适合长时间运行的任务
+    </td>
+    </tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#e8ffe8" bordercolor="#77dd77"><tr><td>
+    <font size="2"><b>提示：</b>推荐使用 <code>./script.sh</code> 方式执行脚本,需要先用 <code>chmod +x script.sh</code> 添加执行权限</font>
+    </td></tr></table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>⭐常用命令真题</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td width="40%">显示当前目录下文件名以 abc 开头同时以 123 结尾的文件</td><td><code>ls abc*123</code></td></tr>
+    <tr bgcolor="#ffffff"><td>在后台执行 <code>./myprog.sh</code></td><td><code>./myprog.sh &amp;</code></td></tr>
+    <tr bgcolor="#e8f4ff"><td>列出当前目录下的所有目录文件（不列出其他文件）</td><td><code>ls -d */</code></td></tr>
+    <tr bgcolor="#ffffff"><td>获取系统当前日期和时间（格式：YYYY-MM-DD_HH:MM:SS）</td><td><code>date +"%Y-%m-%d_%H:%M:%S"</code></td></tr>
+    </table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>参数处理</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td>输出命令行参数的数量</td><td><code>echo $#</code></td></tr>
+    <tr bgcolor="#ffffff"><td>输出脚本命令本身</td><td><code>echo $0</code></td></tr>
+    <tr bgcolor="#e8f4ff"><td>输出第一个命令行参数</td><td><code>echo $1</code></td></tr>
+    <tr bgcolor="#ffffff"><td>输出最后一个命令行参数</td><td><code>eval echo ${$#}</code></td></tr>
+    <tr bgcolor="#e8f4ff"><td>输出全部命令行参数（不含命令本身）</td><td><code>echo $@</code></td></tr>
+    </table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>⭐关系比较</b></font>
+    <p>输出 a 小于 b、a 不等于 b、a 大于等于b 的三种关系比较结果（同C语言）</p>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    read a b<br>
+    echo $((a+b)) $((a-b)) $((a*b)) $((a/b)) $((a%b)) $((a**b))<br>
+    echo $((a&lt;b)) $((a!=b)) $((a&gt;=b))<br>
+    echo $((!a)) $((a&amp;&amp;b)) $((a||b))<br>
+    if [ $a -lt $b ]; then<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;echo $a $b<br>
+    fi<br>
+    if [ $a -gt $b ]; then<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;echo $b $a<br>
+    fi<br>
+    echo $((~a)) $((a&amp;b)) $((a|b)) $((a^b))<br>
+    echo $((a&lt;&lt;b)) $((a&gt;&gt;b))
+    </font>
+    </td></tr></table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐⭐常用环境变量</font></td></tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>基础环境变量示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    printf "$USER='%s'\n" "$USER"<br>
+    printf "$PWD='%s'\n" "$PWD"<br>
+    printf "$HOME='%s'\n" "$HOME"<br>
+    printf "$LANG='%s'\n" "$LANG"<br>
+    printf "$PS1='%s'\n" "$PS1"  # 主提示符<br>
+    printf "$PATH='%s'\n" "$PATH"<br>
+    # LOGNAME 登录用户名
+    </font>
+    </td></tr></table>
+    <br>
+
+    <font size="3" color="#0037da"><b>其他常用内置变量：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td width="25%"><code>$BASH</code></td><td>Bash的完整路径,例如 <code>/bin/bash</code></td></tr>
+    <tr bgcolor="#ffffff"><td><code>$BASH_VERSION</code></td><td>Bash的版本号</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>$ENV</code></td><td>在某些shell中（如POSIX sh）指定环境文件,但在Bash中不常用</td></tr>
+    <tr bgcolor="#ffffff"><td><code>$PATH</code></td><td>可执行文件的搜索路径,以冒号分隔</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>$HOME</code></td><td>当前用户的主目录</td></tr>
+    <tr bgcolor="#ffffff"><td><code>$USER</code> 或 <code>$LOGNAME</code></td><td>当前用户名</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>$PWD</code></td><td>当前工作目录</td></tr>
+    <tr bgcolor="#ffffff"><td><code>$OLDPWD</code></td><td>上一个工作目录</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>$SHELL</code></td><td>当前使用的Shell路径</td></tr>
+    <tr bgcolor="#ffffff"><td><code>$RANDOM</code></td><td>每次引用时返回一个0到32767之间的随机整数</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>$LINENO</code></td><td>当前执行的脚本行号</td></tr>
+    <tr bgcolor="#ffffff"><td><code>$UID</code></td><td>当前用户的真实用户ID</td></tr>
+    </table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr><td bgcolor="#0037da"><font size="4" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;⭐真题示例</font></td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#e8f4ff" bordercolor="#0037da">
+    <tr><td>
+    <font size="3"><b>1. 环境变量处理</b></font><br><br>
+    <b>题目：</b>编写一个脚本,接收一个环境变量名作为参数,输出该环境变量的值。如果该变量未定义,则输出"UNDEFINED"。
+    <br><br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6"><tr><td bgcolor="#1a1a2e"><font face="Courier New, monospace" color="#00ff00" size="2">
+    name=$1<br>
+    eval out=${$#}name}<br>
+    <br>
+    if [ -n "$out" ]; then<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;echo "$out"<br>
+    else<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;echo "UNDEFINED"<br>
+    fi
+    </font></td></tr></table>
+    </td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#ffffff" bordercolor="#0037da">
+    <tr><td>
+    <font size="3"><b>2. 计算多个数字的总和</b></font><br><br>
+    <b>题目：</b>编写脚本接收多个数字作为参数,计算它们的总和并输出。
+    <br><br>
+    <font color="#cc0000" size="2"><b>错误示例：</b></font><br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6"><tr><td bgcolor="#1a1a2e"><font face="Courier New, monospace" color="#ff6666" size="2">
+    sum=0<br>
+    for((i=1;i&lt;=$#;i++));do<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;eval sum=$((sum+$i))<br>
+    done<br>
+    echo sum
+    </font></td></tr></table>
+    <br>
+    <font color="#00cc00" size="2"><b>正确示例：</b></font><br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6"><tr><td bgcolor="#1a1a2e"><font face="Courier New, monospace" color="#00ff00" size="2">
+    sum=0<br>
+    for num in "$@"; do<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;sum=$((sum + num))<br>
+    done<br>
+    echo $sum
+    </font></td></tr></table>
+    </td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#e8f4ff" bordercolor="#0037da">
+    <tr><td>
+    <font size="3"><b>3. 判断是否为数字</b></font><br><br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6"><tr><td bgcolor="#1a1a2e"><font face="Courier New, monospace" color="#00ff00" size="2">
+    if [[ $value =~ ^-?[0-9]+$ ]]; then<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;echo "是数字"<br>
+    fi
+    </font></td></tr></table>
+    <br>
+    <font size="2"><b>正则表达式解析：</b></font>
+    <ul>
+    <li><code>^</code> - 匹配字符串的开始位置</li>
+    <li><code>-?</code> - 可选的负号</li>
+    <li><code>[0-9]</code> - 匹配一个数字字符</li>
+    <li><code>+</code> - 匹配前面的元素一次或多次</li>
+    <li><code>$</code> - 匹配字符串的结束位置</li>
+    </ul>
+    </td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#ffffff" bordercolor="#0037da">
+    <tr><td>
+    <font size="3"><b>4. 判断文件类型</b></font><br><br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6"><tr><td bgcolor="#1a1a2e"><font face="Courier New, monospace" color="#00ff00" size="2">
+    filename="$1"<br>
+    if echo "$filename" | grep -q '.txt$'; then  # 正则中 . 要防止转义,并且-q是判断是否找到表达式的<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;echo "TXT文件"<br>
+    fi
+    </font></td></tr></table>
+    </td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#e8f4ff" bordercolor="#0037da">
+    <tr><td>
+    <font size="3"><b>5. 判断星期几</b></font><br><br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6"><tr><td bgcolor="#1a1a2e"><font face="Courier New, monospace" color="#00ff00" size="2">
+    day=$(date +%u)<br>
+    case $day in<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;1) echo "星期一" ;;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;2) echo "星期二" ;;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;3) echo "星期三" ;;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;4) echo "星期四" ;;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;5) echo "星期五" ;;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;6) echo "星期六" ;;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;7) echo "星期日" ;;<br>
+    esac
+    </font></td></tr></table>
+    </td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#ffffff" bordercolor="#0037da">
+    <tr><td>
+    <font size="3"><b>6. 检查文件是否存在</b></font><br><br>
+    <b>方法一：</b><br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6"><tr><td bgcolor="#1a1a2e"><font face="Courier New, monospace" color="#00ff00" size="2">
+    if [ -e "$name" ]; then<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;echo "文件存在: $name"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;ls -la "$name"<br>
+    else<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;echo "文件不存在: $name"<br>
+    fi
+    </font></td></tr></table>
+    <br>
+    <b>方法二：</b><br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6"><tr><td bgcolor="#1a1a2e"><font face="Courier New, monospace" color="#00ff00" size="2">
+    name="$1"<br>
+    cnt=$(find . -name "$name" | wc -l)<br>
+    if [[ $cnt -eq 0 ]]; then<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;echo "NO"<br>
+    else<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;echo "文件找到,共 $cnt 个匹配:"<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;find . -name "$name" -exec ls -la {} \;<br>
+    fi
+    </font></td></tr></table>
+    </td></tr>
+    </table>
+    <br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6">
+    <tr><td bgcolor="#0037da"><font size="5" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;杂七杂八的东西</font></td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td>花括号扩展</td><td><code>echo {a,z} &gt; txt2</code></td></tr>
+    <tr bgcolor="#ffffff"><td>随机数</td><td><code>$RANDOM</code> - 返回0-32767之间的随机整数</td></tr>
+    <tr bgcolor="#e8f4ff"><td>重启</td><td><code>reboot</code>、<code>shutdown -r</code></td></tr>
+    <tr bgcolor="#ffffff"><td>关机</td><td><code>shutdown</code>、<code>poweroff</code></td></tr>
+    <tr bgcolor="#e8f4ff"><td>查看命令历史</td><td><code>history</code></td></tr>
+    <tr bgcolor="#ffffff"><td>查看文件类型</td><td><code>file filename</code></td></tr>
+    <tr bgcolor="#e8f4ff"><td>查看绝对路径</td><td><code>which command</code></td></tr>
+    <tr bgcolor="#ffffff"><td>系统运行时间</td><td><code>uptime</code></td></tr>
+    <tr bgcolor="#e8f4ff"><td>查看内核版本</td><td><code>uname -r</code></td></tr>
+    <tr bgcolor="#ffffff"><td>虚拟终端</td><td>Ctrl+Alt+F1 至 Ctrl+Alt+F6（共6个）</td></tr>
+    </table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>⭐Linux 与 GNU 的关系</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#f0f0ff" bordercolor="#9999cc">
+    <tr><td>
+    <font size="3"><b>GNU 项目</b></font>（1984年由理查德·斯托曼发起）旨在创建一个完全自由的操作系统（GNU 系统）,以替代专有的 UNIX。<br>
+    它提供了操作系统的核心工具：编译器（GCC）、编辑器（Emacs）、C 库（glibc）、Shell（Bash）等,但<strong>缺乏关键的内核</strong>。<br><br>
+    <font size="3"><b>Linux 内核</b></font>（1991年由林纳斯·托瓦兹发布）恰好填补了这一空白。当 Linux 与 GNU 工具结合后,形成了完整的操作系统,即 <strong>GNU/Linux 系统</strong>（俗称"Linux 发行版"）。
+    </td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td><b>Linux内核</b></td><td>
+    只是一个<b>核心程序</b>,运行后你只能看到一个黑屏终端或内核日志。它本身无法提供完整的用户体验。<br><br>
+    <b>功能：</b><br>
+    - 管理程序的运行,为程序分配资源,并且处理程序之间的通信<br>
+    - 管理对文件系统的读写,把对文件系统的操作映射成对磁盘或其它块设备的操作<br>
+    - 管理存储器,为程序分配内存,并且管理虚拟内存<br>
+    - 管理输入、输出,将设备映射成设备文件<br>
+    - 管理网络
+    </td></tr>
+    <tr bgcolor="#ffffff"><td><b>Linux操作系统</b><br><font size="2">(GNU/Linux 发行版)</font></td><td>
+    是<b>内核 + 一系列外围软件</b>的完整集合包。<br><br>
+    - <b>内核</b>：如上所述,是核心<br>
+    - <b>GNU工具</b>：由GNU项目提供的Shell（如Bash）、编译器、基础命令（如 <code>ls</code>, <code>cp</code>）等,构成了用户与内核交互的<b>命令行环境</b><br>
+    - <b>软件包管理系统</b>：如APT（Debian/Ubuntu）、YUM/DNF（RHEL/Fedora）,用于安装和管理软件<br>
+    - <b>桌面环境</b>：如GNOME、KDE,提供图形用户界面（GUI）<br>
+    - <b>其他应用软件</b>：浏览器、办公软件等
+    </td></tr>
+    </table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>Linux 发行版</b></font>
+    <p>Linux发行版众多,主要根据其技术基础、目标用户和适用场景进行分类：</p>
+    <ul>
+    <li><b>基于Debian：</b>Ubuntu、Linux Mint</li>
+    <li><b>基于Red Hat：</b>Fedora、CentOS</li>
+    <li><b>高度可定制：</b>Arch Linux</li>
+    </ul>
+    <br>
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>⭐⭐find 命令详解</b></font>
+    <p>查找名为"config"的文件：<code>find / -name "config" 2&gt;/dev/null</code><br>
+    <i>（<code>2&gt;/dev/null</code>抛弃错误信息,<code>/</code>表示从根目录查找）</i></p>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    # 在当前目录及子目录中查找<br>
+    find . -name "config"<br>
+    <br>
+    # 查找名为config的文件或目录<br>
+    find / -type f -name "config" 2&gt;/dev/null    # 只找文件<br>
+    find / -type d -name "config" 2&gt;/dev/null    # 只找目录<br>
+    find / -name ".*config*" 2&gt;/dev/null         # 查找隐藏的config文件<br>
+    <br>
+    # 查找以config开头/结尾/包含的文件<br>
+    find / -name "config*" 2&gt;/dev/null    # 以config开头<br>
+    find / -name "*config" 2&gt;/dev/null    # 以config结尾<br>
+    find / -name "*config*" 2&gt;/dev/null   # 包含config<br>
+    <br>
+    # locate 快速查找<br>
+    locate -b '\config'     # 完全匹配"config"<br>
+    locate -b '\config$'    # 以"config"结尾
+    </font>
+    </td></tr></table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>时间与日期</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td>设置当前时间为2023年12月25日10:30</td><td><code>date 122510302023</code> 或 <code>sudo date -s "2023-12-25 10:30:00"</code></td></tr>
+    <tr bgcolor="#ffffff"><td>date命令格式说明</td><td>格式：<code>MMDDhhmm[[CC]YY][.ss]</code>,分别代表月、日、时、分、年、秒</td></tr>
+    </table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>tar 命令</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td>解压tar.gz文件</td><td><code>tar -xzf file.tar.gz</code></td></tr>
+    <tr bgcolor="#ffffff"><td>将所有.txt文件打包成archive.tar</td><td><code>tar -cvf archive.tar *.txt</code></td></tr>
+    </table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>⭐重定向操作符</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td><code>&gt;</code></td><td>覆盖重定向（覆盖输出到文件）</td></tr>
+    <tr bgcolor="#ffffff"><td><code>&gt;&gt;</code></td><td>追加重定向（追加输出到文件）</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>2&gt;</code></td><td>错误重定向</td></tr>
+    <tr bgcolor="#ffffff"><td><code>&amp;&gt;</code></td><td>所有输出重定向</td></tr>
+    </table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>Shell 脚本</b></font>
+    <p><b>shebang行：</b>shell脚本开头,指定使用某个解释器,如 <code>#!/bin/bash</code>,保证兼容性</p>
+
+    <font size="3" color="#0037da"><b>示例：批量重命名当前目录下所有.txt文件为.bak</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    #!/bin/bash<br>
+    for file in *.txt; do<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;mv "$file" "${file%.txt}.bak"<br>
+    done
+    </font>
+    </td></tr></table>
+    <br>
+
+    <font size="3" color="#0037da"><b>示例：查找并删除7天前的.log文件</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    find /path/to/logs -name "*.log" -mtime +7 | xargs rm
+    </font>
+    </td></tr></table>
+    <br>
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>循环计算示例</b></font>
+    <p>计算1到100的和</p>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#ffe8e8" bordercolor="#dd8888">
+    <tr><td>
+    <font color="#cc0000"><b>错误示例：</b></font><br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6"><tr><td bgcolor="#1a1a2e"><font face="Courier New, monospace" color="#ff6666" size="2">
+    i=1<br>
+    sum=0<br>
+    while [ i -lt 101 ]; do<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;sum=${sum}+${i}<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;i++<br>
+    done
+    </font></td></tr></table>
+    </td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#e8ffe8" bordercolor="#77dd77">
+    <tr><td>
+    <font color="#00aa00"><b>正确示例：</b></font><br><br>
+    <b>方法一：while 循环</b><br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6"><tr><td bgcolor="#1a1a2e"><font face="Courier New, monospace" color="#00ff00" size="2">
+    i=1<br>
+    sum=0<br>
+    while [ $i -lt 101 ]; do<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;sum=$((sum + i))<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;i=$((i + 1))  # 或 let i++ 或 ((i++))<br>
+    done<br>
+    echo $sum
+    </font></td></tr></table>
+    <br>
+    <b>方法二：C风格for循环</b><br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6"><tr><td bgcolor="#1a1a2e"><font face="Courier New, monospace" color="#00ff00" size="2">
+    sum=0<br>
+    for ((i=1; i&lt;=100; i++)); do<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;sum=$((sum + i))<br>
+    done<br>
+    echo $sum
+    </font></td></tr></table>
+    <br>
+    <b>方法三：范围for循环</b><br>
+    <table width="100%" border="0" cellspacing="0" cellpadding="6"><tr><td bgcolor="#1a1a2e"><font face="Courier New, monospace" color="#00ff00" size="2">
+    sum=0<br>
+    for i in {1..100}; do<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;sum=$((sum + i))<br>
+    done<br>
+    echo $sum
+    </font></td></tr></table>
+    </td></tr>
+    </table>
+    <br>
+
+    <font size="3" color="#0037da"><b>示例：简单计算器</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    read -p "first num: " num1<br>
+    read -p "operation: " op<br>
+    read -p "second num: " num2<br>
+    result=$((num1 $op num2))<br>
+    echo "res: $result"
+    </font>
+    </td></tr></table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>nohup 命令详解</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#ffffd0" bordercolor="#ccaa00">
+    <tr><td>
+    <code>nohup ./server &gt; server.log 2&gt;&amp;1 &amp;</code><br><br>
+    <b>解释：</b><br>
+    - <code>nohup</code>：忽略挂起信号<br>
+    - <code>&gt;</code>：重定向标准输出<br>
+    - <code>2&gt;&amp;1</code>：将错误输出重定向到标准输出<br>
+    - <code>&amp;</code>：在后台运行
+    </td></tr>
+    </table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>Bash 位置参数</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td width="25%"><code>$0</code></td><td>脚本名称</td></tr>
+    <tr bgcolor="#ffffff"><td><code>$1</code>, <code>$2</code>, <code>$3</code>...</td><td>第1、2、3...个参数</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>$#</code></td><td>参数个数</td></tr>
+    <tr bgcolor="#ffffff"><td><code>$@</code></td><td>所有参数列表（每个参数是独立的字符串）</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>$*</code></td><td>所有参数列表（所有参数合并为一个字符串）</td></tr>
+    <tr bgcolor="#ffffff"><td><code>$$</code></td><td>当前脚本进程ID</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>$?</code></td><td>上条命令的退出状态</td></tr>
+    </table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>find -exec 选项</b></font>
+    <p><code>find [路径] [表达式] -exec 命令 {} \;</code> 或 <code>find [路径] [表达式] -exec 命令 {} +</code></p>
+
+    <font size="3" color="#0037da"><b>示例：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bgcolor="#1a1a2e" bordercolor="#33334d"><tr><td>
+    <font face="Courier New, monospace" color="#00ff00" size="2">
+    # 查找并复制所有包含error的日志文件<br>
+    find /var/log/ -name "*error*" -type f -exec cp {} /tmp/errors/ \;<br>
+    <br>
+    # 查找并处理.cpp文件<br>
+    ls | grep ".cpp" | xargs file<br>
+    find . -name "*.cpp" -exec file {} \;
+    </font>
+    </td></tr></table>
+    <br>
+
+    <font size="3" color="#0037da"><b>占位符说明：</b></font>
+    <ul>
+    <li><code>{}</code> - 占位符,替换为 <code>find</code> 找到的文件目录</li>
+    <li><code>\;</code> - 表示命令结束</li>
+    <li>避免报错可改成：<code>find /var/log/ -name "*error*" -exec cp {} /tmp/errors/ \; 2&gt;/dev/null</code></li>
+    </ul>
+    <br>
+
+    <font size="3" color="#0037da"><b>find 常用选项：</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td><code>-name</code></td><td>文件名</td></tr>
+    <tr bgcolor="#ffffff"><td><code>-user</code></td><td>用户名</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>-group</code></td><td>组名</td></tr>
+    <tr bgcolor="#ffffff"><td><code>-type</code></td><td>目标类型：b、d、f、l（块设备、目录、文件、符号链接）</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>-size</code></td><td>文件大小,如 <code>-size +2000</code>（200 block,512字节x200,约1MB）</td></tr>
+    <tr bgcolor="#ffffff"><td><code>-mtime</code></td><td>修改时间,如7天内 <code>-mtime -7</code></td></tr>
+    </table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>⭐实用技巧</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td>统计/var/log目录下所有.log文件数量</td><td><code>find /var/log -name "*.log" | wc -l</code></td></tr>
+    <tr bgcolor="#ffffff"><td>列出当前目录所有符号链接文件</td><td><code>ls -la | grep '^l'</code></td></tr>
+    <tr bgcolor="#e8f4ff"><td>echo *.txt 的输出（有a.txt和b.txt）</td><td><code>a.txt b.txt</code>（通配符扩展）</td></tr>
+    </table>
+    <br>
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>date 命令格式说明</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td width="15%"><code>%Y</code></td><td>四位年份（如 2025）</td></tr>
+    <tr bgcolor="#ffffff"><td><code>%y</code></td><td>两位年份（如 25）</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>%m</code></td><td>月份（01–12）</td></tr>
+    <tr bgcolor="#ffffff"><td><code>%b</code></td><td>月份缩写（Dec）</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>%d</code></td><td>日期（01–31）</td></tr>
+    <tr bgcolor="#ffffff"><td><code>%a</code></td><td>星期缩写（Thu）</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>%u</code></td><td>星期几（1-7, 1=周一）</td></tr>
+    <tr bgcolor="#ffffff"><td><code>%H</code></td><td>小时（00–23）</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>%I</code></td><td>小时（01-12）</td></tr>
+    <tr bgcolor="#ffffff"><td><code>%M</code></td><td>分钟（00–59）</td></tr>
+    <tr bgcolor="#e8f4ff"><td><code>%S</code></td><td>秒（00–59）</td></tr>
+    </table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>⭐操作系统概念</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bgcolor="#e8f4ff" bordercolor="#0037da">
+    <tr><td>
+    <b>操作系统</b>是管理和控制硬件的系统软件,它直接操作硬件,并向上层提供统一的资源管理接口。操作系统将硬件细节抽象化,负责进程调度、内存管理、文件系统等核心功能。<br><br>
+    <b>分层结构：</b><br>
+    - 硬件：底层物理支撑<br>
+    - 操作系统：中间层,管理硬件并为应用软件提供运行环境<br>
+    - 应用软件：顶层,通过操作系统间接使用硬件资源<br><br>
+    用户通过应用软件与计算机交互,应用软件依赖操作系统,操作系统驱动硬件。这种分层结构使得应用开发无需关心硬件细节,提高了系统的安全性和可移植性。
+    </td></tr>
+    </table>
+    <br>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="6">
+    <tr><td bgcolor="#0037da"><font size="5" color="#FFFFFF" face="Arial, Helvetica, sans-serif">&nbsp;补充：来自Linux实验手册</font></td></tr>
+    </table>
+    <br>
+
+    <font size="4" color="#0037da" face="Arial, Helvetica, sans-serif"><b>常用快捷键</b></font>
+    <table width="100%" border="1" cellspacing="0" cellpadding="8" bordercolor="#0037da">
+    <tr bgcolor="#e8f4ff"><td width="30%"><b>Ctrl-C</b></td><td>结束进程</td></tr>
+    <tr bgcolor="#ffffff"><td><b>Ctrl-D</b></td><td>(EOF)退出terminal,等同于 exit + Enter</td></tr>
+    <tr bgcolor="#e8f4ff"><td><b>Ctrl-S</b></td><td>中断控制台输出</td></tr>
+    <tr bgcolor="#ffffff"><td><b>Ctrl-Q</b></td><td>恢复控制台输出</td></tr>
+    <tr bgcolor="#e8f4ff"><td><b>Ctrl-Z</b></td><td>挂起进程 + fg 解锁</td></tr>
+    <tr bgcolor="#ffffff"><td><b>Ctrl-L</b></td><td>清屏</td></tr>
+    <tr bgcolor="#e8f4ff"><td><b>Ctrl-U</b></td><td>从光标处删除文本直到行首</td></tr>
+    <tr bgcolor="#ffffff"><td><b>Ctrl-K</b></td><td>从光标处删除文本直到行尾</td></tr>
+    <tr bgcolor="#e8f4ff"><td><b>Ctrl-Y</b></td><td>粘贴文本（粘贴删除的文本）</td></tr>
+    <tr bgcolor="#ffffff"><td><b>Ctrl-E</b></td><td>将光标移动到行尾</td></tr>
+    <tr bgcolor="#e8f4ff"><td><b>Ctrl-A</b></td><td>将光标移动到行的开头</td></tr>
+    </table>
+    <br>
+    <hr>
+    <hr>
+
+
+
+
+
+
+
+
+<br>
+
+</font>
+</td>
+</tr>
+
+<tr>
+<td colspan="2" align="center" bgcolor="#fffdfc">
+<font face="Courier New" size="2" color="#000000">
+© 2026 Sheng OovLeí<br>
+<font size="2">[ <a href="https://www.zgshbfw.com/pages/publicWelfare.html">支持中国公益项目</a> ] </font>
+</font>
+<br>
+</td>
+</tr>
+</table>
+</center>
+</body>
+</html>
