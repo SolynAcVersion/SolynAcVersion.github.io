@@ -4,22 +4,23 @@
 <title>博客首页</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
-/* 移动端适配 - 仅针对主布局表格 */
+/* 移动端适配 */
 @media screen and (max-width: 980px) {
-  /* 主表格适配 */
-  center > table {
+  /* 主表格宽度 */
+  center table {
     width: 95% !important;
-    max-width: 95%;
   }
 
-  /* 主布局行：让侧边栏和内容区垂直堆叠 */
-  center > table > tr > td {
-    display: block;
+  /* 主布局：侧边栏和内容区垂直堆叠
+     选择有 width 属性的 td（侧边栏）及其兄弟 td（内容区） */
+  center table td[width="210"],
+  center table td[width="210"] + td {
+    display: block !important;
     width: 100% !important;
   }
 
-  /* 隐藏ASCII art在小屏幕上以节省空间 */
-  center > table pre {
+  /* 隐藏 ASCII art */
+  center table pre {
     display: none;
   }
 
@@ -34,12 +35,12 @@
 
 /* 超小屏幕适配（手机竖屏） */
 @media screen and (max-width: 480px) {
-  center > table {
+  center table {
     width: 98% !important;
     border-width: 2px !important;
   }
 
-  center > table > tr > td {
+  center table td {
     padding: 6px 4px !important;
   }
 
@@ -50,19 +51,21 @@
     font-size: 14px !important;
   }
 
-  /* 内容表格适配：保持表格结构，但调整间距 */
-  table table {
+  /* 内容表格保持表格结构 */
+  center table table {
     font-size: 12px;
     width: 100% !important;
+    table-layout: fixed;
   }
-  table table td,
-  table table th {
+  center table table td,
+  center table table th {
     padding: 4px 2px !important;
     word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
-  /* 增加链接可点击区域 */
-  table a {
+  /* 链接可点击区域 */
+  center table a {
     display: inline-block;
     padding: 2px 0;
   }
