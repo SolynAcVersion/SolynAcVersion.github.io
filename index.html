@@ -2,10 +2,73 @@
 <html>
 <head>
 <title>ShengOovLei 的小站</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style type="text/css">
+/* 移动端适配 */
+@media screen and (max-width: 980px) {
+  center table {
+    width: 100% !important;
+    max-width: 100%;
+    margin: 0 !important;
+    border: 2px solid #600000 !important;
+  }
+  center table td {
+    display: block;
+    width: 100% !important;
+    padding: 10px 8px !important;
+  }
+  /* 隐藏ASCII art在小屏幕上以节省空间 */
+  center table pre {
+    display: none;
+  }
+  /* 调整字体大小 */
+  center table font[size="5"] {
+    font-size: 22px !important;
+  }
+  center table font[size="3"] {
+    font-size: 16px !important;
+  }
+}
+
+/* 超小屏幕适配（手机竖屏） */
+@media screen and (max-width: 480px) {
+  center table {
+    border: 1px solid #600000 !important;
+  }
+  center table td {
+    padding: 6px 4px !important;
+  }
+  center table font[size="5"] {
+    font-size: 18px !important;
+  }
+  center table font[size="3"] {
+    font-size: 14px !important;
+  }
+  /* 压缩表格间距 */
+  center table table {
+    font-size: 12px;
+  }
+  center table table td,
+  center table table th {
+    padding: 4px 2px !important;
+  }
+  /* 增加链接可点击区域 */
+  center table a {
+    display: inline-block;
+    padding: 2px 0;
+  }
+}
+
+/* 防止横向溢出 */
+body {
+  overflow-x: hidden;
+  word-wrap: break-word;
+}
+</style>
 </head>
 <body text="#000000" link="#0037da" vlink="#0037da" alink="#900000" bgcolor="#EEEEEE">
 <center>
-<table width="950" cellspacing="4" cellpadding="12" border="3" bordercolor="#600000">
+<table width="950" style="max-width: 95%; margin: 0 auto;" cellspacing="4" cellpadding="12" border="3" bordercolor="#600000">
 <tr>
 <td colspan="2" align="center" bgcolor="#fffdfc">
 <pre><font color="#A00000" size="2"><b>
@@ -162,7 +225,7 @@
 <td colspan="2" align="center" bgcolor="#fffdfc">
 <font face="Courier New" size="2" color="#000000">
 © 2026 Sheng OovLeí<br>
-Last updated: 2026-02-24<br>
+Last updated: 2026-03-03<br>
 <font size="2">[ <a href="https://www.zgshbfw.com/pages/publicWelfare.html">支持中国公益项目</a> ] </font>
 
 </font>
