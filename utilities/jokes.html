@@ -634,6 +634,11 @@
                         <i data-lucide="lightbulb" class="w-5 h-5"></i>
                         <span>有趣线上小巧思</span>
                     </a>
+
+                    <a href="../books_idx.html" class="nav-link">
+                        <i data-lucide="book-open" class="w-5 h-5"></i>
+                        <span>线上学习资料</span>
+                    </a>
                 </nav>
 
                 <div class="divider"></div>
@@ -697,9 +702,9 @@
                             随机笑话生成器
                         </h1>
                         <p class="text-gray-600 text-lg">
-                            调用 JokeAPI 获取各种类型的随机笑话。
-                            <br>支持编程、黑色幽默、双关语、恐怖等多种分类。
-                            <br><span style="color: #8b5cf6;">注意：黑色幽默分类可能包含不当内容，请谨慎选择。</span>
+                            各种类型的随机笑话。
+                            <br>支持多种分类。
+                            <br><span style="color: #8b5cf6;">注：黑色幽默分类可能包含不当内容，请谨慎 (?) 选择</span>
                         </p>
                     </div>
 
@@ -707,10 +712,10 @@
 
                     <!-- Warning Banner for Dark Jokes -->
                     <div id="warningBanner" class="warning-banner hidden">
-                        <i data-lucide="alert-triangle"></i>
                         <p>
-                            <strong>黑色幽默模式已启用</strong><br>
-                            此类笑话包含黑暗、讽刺或可能引起不适的内容。如果你感到不适，请立即切换到其他分类。
+                            <strong>你启用了 DARK JOKES</strong><br>
+                            最解构的一集。<br>
+                            保命: 笑话内容随机抽取自外部数据库, API 随机调用, 不代表本人观点
                         </p>
                     </div>
 
@@ -739,7 +744,7 @@
                             </div>
                             <div class="category-item" data-category="Pun">
                                 <i data-lucide="smile" class="w-6 h-6"></i>
-                                <span>双关语</span>
+                                <span>双关</span>
                             </div>
                             <div class="category-item" data-category="Spooky">
                                 <i data-lucide="ghost" class="w-6 h-6"></i>
@@ -758,7 +763,7 @@
                     <div class="text-center flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
                         <button id="fetchJokeBtn" class="evil-button">
                             <i data-lucide="zap"></i>
-                            <span>给我来个笑话！</span>
+                            <span>Come On</span>
                         </button>
                     </div>
 
@@ -780,19 +785,8 @@
                                 </span>
                                 <span id="jokeType">
                                     <i data-lucide="layers"></i>
-                                    <span id="typeText">双段式</span>
+                                    <span id="typeText">双段</span>
                                 </span>
-                            </div>
-                            <div class="rating-system">
-                                <button class="rating-btn good" data-rating="good">
-                                    <span>好笑</span>
-                                </button>
-                                <button class="rating-btn bad" data-rating="bad">
-                                    <span>冷笑话</span>
-                                </button>
-                                <button class="rating-btn evil" data-rating="evil">
-                                    <span>有趣</span>
-                                </button>
                             </div>
                         </div>
                     </div>
