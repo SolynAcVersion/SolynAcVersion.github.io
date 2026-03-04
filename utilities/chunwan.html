@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>魔术计算器</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #1C1C1C;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        .calculator {
+            width: 100%;
+            max-width: 400px;
+            background: #1C1C1C;
+            padding: 20px 16px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .display {
+            background: #1C1C1C;
+            padding: 20px 0 10px;
+            text-align: right;
+        }
+        .expression {
+            font-size: 24px;
+            color: #8F8F8F;
+            min-height: 36px;
+            word-wrap: break-word;
+        }
+        .result {
+            font-size: 56px;
+            color: #504945;
+            font-weight: 300;
+            margin-top: 8px;
+            word-wrap: break-word;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .btn {
+            aspect-ratio: 1 / 1;
+            border: none;
+            border-radius: 50%;
+            font-size: 32px;
+            font-weight: 400;
+            color: white;
+            background: #333333;
+            cursor: pointer;
+            transition: filter 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: none;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        .btn:active {
+            filter: brightness(150%);
+        }
+        .btn.function {
+            background: #A5A5A5;
+            color: black;
+        }
+        .btn.operator {
+            background: #FF9F0A;
+            color: white;
+        }
+        .btn.zero {
+            grid-column: span 2;
+            aspect-ratio: auto;
+            border-radius: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="calculator">
+    <div class="display">
+        <div class="expression" id="expression"></div>
+        <div class="result" id="result">0</div>
+    </div>
+    <div class="buttons">
+        <!-- 第一行 -->
+        <button class="btn function" id="btnAC">AC</button>
+        <button class="btn function" id="btnPlusMinus">+/-</button>
+        <button class="btn function" id="btnPercent">%</button>
+        <button class="btn operator" id="btnDivide">÷</button>
+
+        <!-- 第二行 -->
+        <button class="btn" id="btn7">7</button>
+        <button class="btn" id="btn8">8</button>
+        <button class="btn" id="btn9">9</button>
+        <button class="btn operator" id="btnMultiply">×</button>
+
+        <!-- 第三行 -->
+        <button class="btn" id="btn4">4</button>
+        <button class="btn" id="btn5">5</button>
+        <button class="btn" id="btn6">6</button>
+        <button class="btn operator" id="btnMinus">−</button>
+
+        <!-- 第四行 -->
+        <button class="btn" id="btn1">1</button>
+        <button class="btn" id="btn2">2</button>
+        <button class="btn" id="btn3">3</button>
+        <button class="btn operator" id="btnPlus">+</button>
+
+        <!-- 第五行 -->
+        <button class="btn zero" id="btn0">0</button>
+        <button class="btn" id="btnDot">.</button>
+        <button class="btn operator" id="btnEqual">=</button>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // 获取元素
+        const expressionDiv = document.getElementById('expression');
+        const resultDiv = document.getElementById('result');
+
+        // 状态定义
+        const STATE_INPUT = 'input';          // 输入阶段
+        const STATE_SHOW_RESULT = 'show_result'; // 显示第一阶段结果（短暂过渡）
+        const STATE_FIXED = 'fixed';          // 锁定阶段
+
+        let currentState = STATE_INPUT;
+        let transitionTimer = null;           // 过渡定时器
+
+        // 数据
+        let inputStr = '';                    // 第一阶段输入的表达式
+        let firstResult = 0;                   // 第一阶段计算结果
+        let fixedNumber = 0;                    // 第二阶段固定显示的数值
+        let fixedExpression = '';               // 第二阶段固定显示的表达式
+        let fixedDisplayIndex = 0;              // 当前显示固定数的第几位（劫持输入用）
+        let fixedString = '';                   // 固定数的字符串形式
+        let firstInputStr = '';                 // 第一阶段输入的原始表达式（用于锁定模式显示）
+        let hasPlusInFixed = false;             // 锁定模式下用户是否已按加号
+
+        // 辅助函数：获取当前时间数字 (月日时分)
+        function getCurrentTimeNumber() {
+            const now = new Date();
+            const month = now.getMonth() + 1;       // 1-12
+            const day = now.getDate();               // 1-31
+            const hour = now.getHours();              // 0-23
+            const minute = now.getMinutes();          // 0-59
+            return month * 1000000 + day * 10000 + hour * 100 + minute;
+        }
+
+        // 重置到输入状态
+        function resetToInput() {
+            // 清除之前的定时器
+            if (transitionTimer) {
+                clearTimeout(transitionTimer);
+                transitionTimer = null;
+            }
+            currentState = STATE_INPUT;
+            inputStr = '';
+            firstResult = 0;
+            fixedNumber = 0;
+            fixedExpression = '';
+            fixedDisplayIndex = 0;
+            fixedString = '';
+            firstInputStr = '';
+            hasPlusInFixed = false;
+            expressionDiv.innerText = '';
+            resultDiv.innerText = '0';
+        }
+
+        // 进入固定状态
+        function enterFixedState() {
+            currentState = STATE_FIXED;
+            const currentTime = getCurrentTimeNumber();
+            fixedNumber = currentTime - firstResult;
+            fixedString = String(fixedNumber); // 转换为字符串，用于逐位显示
+            fixedDisplayIndex = 0; // 重置显示索引
+            hasPlusInFixed = false; // 重置加号标志
+            expressionDiv.innerText = firstInputStr; // 初始显示原始表达式（不带加号）
+            resultDiv.innerText = '0'; // 初始显示0，等待用户输入
+            transitionTimer = null;
+            console.log('进入锁定模式 - 第一阶段结果:', firstResult, '固定数:', fixedNumber, '固定字符串:', fixedString, '时间戳:', currentTime);
+        }
+
+        // 处理数字/小数点点击
+        function handleNumberClick(digit) {
+            // 过渡阶段禁止任何输入
+            if (currentState === STATE_SHOW_RESULT) return;
+
+            if (currentState === STATE_INPUT) {
+                inputStr += digit;
+                expressionDiv.innerText = inputStr;
+                resultDiv.innerText = inputStr;
+            } else { // STATE_FIXED
+                // 固定状态：劫持输入，逐位显示固定数
+                if (!hasPlusInFixed) {
+                    // 如果还没按加号，数字键无效
+                    return;
+                }
+                fixedDisplayIndex++;
+                if (fixedDisplayIndex > fixedString.length) {
+                    fixedDisplayIndex = fixedString.length;
+                }
+                const displayPart = fixedString.substring(0, fixedDisplayIndex);
+                expressionDiv.innerText = firstInputStr + '+' + displayPart;
+                resultDiv.innerText = displayPart;
+                console.log('劫持输入 - 显示第', fixedDisplayIndex, '位:', resultDiv.innerText);
+            }
+        }
+
+        // 处理加号点击
+        function handlePlusClick() {
+            if (currentState === STATE_SHOW_RESULT) return;
+
+            if (currentState === STATE_INPUT) {
+                if (inputStr && !inputStr.endsWith('+')) {
+                    inputStr += '+';
+                    expressionDiv.innerText = inputStr;
+                    resultDiv.innerText = inputStr;
+                }
+            } else { // STATE_FIXED
+                // 固定状态：加号显示加号
+                if (!hasPlusInFixed) {
+                    hasPlusInFixed = true;
+                    expressionDiv.innerText = firstInputStr + '+';
+                } else {
+                    // 已经有加号了，加号也参与劫持输入
+                    fixedDisplayIndex++;
+                    if (fixedDisplayIndex > fixedString.length) {
+                        fixedDisplayIndex = fixedString.length;
+                    }
+                    const displayPart = fixedString.substring(0, fixedDisplayIndex);
+                    expressionDiv.innerText = firstInputStr + '+' + displayPart;
+                    resultDiv.innerText = displayPart;
+                }
+            }
+        }
+
+        // 处理等号点击
+        function handleEqualClick() {
+            console.log('按等号 - 当前状态:', currentState);
+            if (currentState === STATE_SHOW_RESULT) return; // 过渡阶段不能再次按等号
+
+            if (currentState === STATE_INPUT) {
+                // 第一阶段：计算结果并短暂显示
+                if (!inputStr) return;
+                try {
+                    firstInputStr = inputStr; // 保存原始输入表达式
+                    const parts = inputStr.split('+');
+                    let sum = 0;
+                    for (let p of parts) {
+                        if (p.trim() !== '') {
+                            sum += parseFloat(p.trim());
+                        }
+                    }
+                    firstResult = sum;
+                    resultDiv.innerText = String(firstResult);
+                    expressionDiv.innerText = firstInputStr; // 显示原始表达式（不带等号）
+                    console.log('第一阶段结果:', firstResult);
+
+                    // 切换到过渡状态，然后延迟进入固定状态
+                    currentState = STATE_SHOW_RESULT;
+                    transitionTimer = setTimeout(() => {
+                        console.log('定时器触发，准备进入锁定模式');
+                        enterFixedState();
+                    }, 800); // 0.8秒后自动锁定
+                } catch (e) {
+                    resultDiv.innerText = '错误';
+                    inputStr = '';
+                    expressionDiv.innerText = '';
+                }
+            } else { // STATE_FIXED
+                console.log('锁定模式按等号，显示时间戳');
+                // 固定状态：等号显示当前时间戳，并显示完整表达式
+                const currentTime = getCurrentTimeNumber();
+                resultDiv.innerText = String(currentTime);
+                expressionDiv.innerText = firstResult + '+' + fixedNumber; // 显示完整表达式
+            }
+        }
+
+        // 处理其他装饰按钮点击（包括+/-、%、÷、×、-等）
+        function handleDummyClick() {
+            if (currentState === STATE_SHOW_RESULT) return;
+            if (currentState === STATE_FIXED) {
+                // 固定状态：装饰按钮也参与劫持，逐位显示固定数
+                if (!hasPlusInFixed) {
+                    // 如果还没按加号，装饰键无效
+                    return;
+                }
+                fixedDisplayIndex++;
+                if (fixedDisplayIndex > fixedString.length) {
+                    fixedDisplayIndex = fixedString.length;
+                }
+                const displayPart = fixedString.substring(0, fixedDisplayIndex);
+                expressionDiv.innerText = firstInputStr + '+' + displayPart;
+                resultDiv.innerText = displayPart;
+            }
+            // 输入状态下，装饰按钮无任何反应（也不改变显示）
+        }
+
+        // 设置点击事件
+        document.getElementById('btn0').addEventListener('click', () => handleNumberClick('0'));
+        document.getElementById('btn1').addEventListener('click', () => handleNumberClick('1'));
+        document.getElementById('btn2').addEventListener('click', () => handleNumberClick('2'));
+        document.getElementById('btn3').addEventListener('click', () => handleNumberClick('3'));
+        document.getElementById('btn4').addEventListener('click', () => handleNumberClick('4'));
+        document.getElementById('btn5').addEventListener('click', () => handleNumberClick('5'));
+        document.getElementById('btn6').addEventListener('click', () => handleNumberClick('6'));
+        document.getElementById('btn7').addEventListener('click', () => handleNumberClick('7'));
+        document.getElementById('btn8').addEventListener('click', () => handleNumberClick('8'));
+        document.getElementById('btn9').addEventListener('click', () => handleNumberClick('9'));
+        document.getElementById('btnDot').addEventListener('click', () => handleNumberClick('.'));
+
+        document.getElementById('btnPlus').addEventListener('click', handlePlusClick);
+        document.getElementById('btnEqual').addEventListener('click', handleEqualClick);
+        document.getElementById('btnAC').addEventListener('click', resetToInput);
+
+        // 装饰按钮
+        const dummyIds = ['btnPlusMinus', 'btnPercent', 'btnDivide', 'btnMultiply', 'btnMinus'];
+        dummyIds.forEach(id => {
+            document.getElementById(id).addEventListener('click', handleDummyClick);
+        });
+
+        // 初始化显示
+        resetToInput();
+    })();
+</script>
+</body>
+</html>
