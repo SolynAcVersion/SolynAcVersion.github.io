@@ -2,8 +2,47 @@
 <html>
 <head>
 <title>线上学习资料</title>
+<meta name="robots" content="noindex, nofollow">
+<script>
+async function hashPassword(password) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password + 'shengoovlei_salt_2026');
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function checkPassword() {
+  const password = prompt("请输入访问密码：");
+  if(password === null) return;
+
+  const passwordHash = await hashPassword(password);
+  const correctHash = '77416fd35a751153797bed3cc4f4776b0882e5d39119321a7faf09ca20323215';
+
+  if(passwordHash === correctHash) {
+    document.getElementById('gatekeeper').style.display='none';
+    document.getElementById('content').style.display='block';
+  } else {
+    window.location.href = './index.html';
+    alert("密码错误");
+  }
+}
+</script>
 </head>
 <body text="#000000" link="#008800" vlink="#0037da" alink="#900000" bgcolor="#EEEEEE">
+
+<!-- 访问验证 -->
+<div id="gatekeeper" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#EEEEEE;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;">
+  <div style="background:white;padding:40px;border-radius:10px;box-shadow:0 4px 6px rgba(0,0,0,0.1);text-align:center;max-width:400px;">
+    <h2 style="color:#0037da;margin-bottom:20px;">访问验证</h2>
+    <p style="margin-bottom:20px;color:#666;">页面内容仅供学习交流使用</p>
+    <button onclick="checkPassword()" style="padding:12px 30px;font-size:16px;background:#0037da;color:white;border:none;border-radius:5px;cursor:pointer;">验证访问</button>
+    <p style="margin-top:15px;font-size:12px;color:#999;">提示: format!("{}{}", UNI*, MAJOR).to_lowercase();</p>
+  </div>
+</div>
+
+<!-- 主要内容 -->
+<div id="content" style="display:none;">
 <center>
 
 
@@ -36,10 +75,20 @@
 
 <td bgcolor="#fffdfc" valign="top">
 <font face="Courier New" color="#000000">
-<b><big><font color="#0037da">工具 - 电子书籍 - 持续更新中</font></big></b><br>
+<b><big><font color="#0037da">免费学习资料分享 - 持续更新中</font></big></b><br>
 <hr size="1" noshade>
 <br>
 <!-- 正文部分 -->
+
+<p><b>版权声明：</b></p>
+<p>本站提供的所有学习资料均为免费分享，仅供个人学习、研究使用。</p>
+<p>如果资料涉及您的权益，请通过右侧联系方式联系我，我会及时处理。</p>
+<p>请勿将资料用于商业用途。</p>
+<br>
+
+注: 所有蓝奏云链接密码都是 5u8j
+
+
 
 <table border="3" bordercolor="#9CABBF" cellspacing="3" cellpadding="4" width="100%">
 <tr>
@@ -48,20 +97,95 @@
 </tr>
 
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://rust-book.cs.brown.edu/">The Rust Programming Language</a></td>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">Rust 入门</td>
-</tr>
-<tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://cplusplus.com/">C Plus Plus</a></td>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">权威的C++教程、参考</td>
-</tr>
-<tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://github.com/Yoget/Tongji-University-Advanced-Mathematics/tree/main">高数 · 同济版 、 概率论 · 浙大版</a></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://wwbce.lanzouu.com/b0139kjp3c">[外链 - 蓝奏云] 高等数学教材上册【第七版】</a></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
 </tr>
 
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://github.com/huangtinglin/Linear-Algebra-and-Its-Applications-notes">《线性代数及其应用》笔记</a></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://wwbce.lanzouu.com/b0139kjp3c">[外链 - 蓝奏云] 高等数学教材下册【第七版】</a></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
+</tr>
+
+<tr>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://wwbce.lanzouu.com/b0139kjp3c">[外链 - 蓝奏云] 吉米多维奇线性代数习题精选精解</a></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
+</tr>
+
+<tr>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://wwbce.lanzouu.com/b0139kjp3c">[外链 - 蓝奏云] 离散数学及其应用-第7版</a></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
+</tr>
+
+<tr>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://wwbce.lanzouu.com/b0139kjp3c">[外链 - 蓝奏云] 算法导论</a></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
+</tr>
+
+<tr>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://wwbce.lanzouu.com/b0139kjp3c">[外链 - 蓝奏云] 线性代数（慕课版） (张天德 王玮 主编，陈兆英 程涛 副主编)</a></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
+</tr>
+
+<tr>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://wwbce.lanzouu.com/b0139kjp3c">[外链 - 蓝奏云] 线性代数及其应用（第5版）</a></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
+</tr>
+
+<tr>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://wwbce.lanzouu.com/b0139kjp3c">[外链 - 蓝奏云] 深度学习入门 - 基于Python的理论与实现 （鱼书）</a></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
+</tr>
+
+<tr>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://wwbce.lanzouu.com/b0139kjp3c">[外链 - 蓝奏云] Fundamentals of Computer Graphics 4th （虎书）</a></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
+</tr>
+
+<tr>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://wwbce.lanzouu.com/b0139kjp3c">[外链 - 蓝奏云] 仓颉编程快速上手</a></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
+</tr>
+
+<tr>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://wwbce.lanzouu.com/b0139kjp3c">[外链 - 蓝奏云] 概率论《原神》版教学辅导用书 试读</a></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
+</tr>
+
+<tr>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://wwbce.lanzouu.com/b0139kjp3c">[外链 - 蓝奏云] 鬼吹灯（正篇1-8合集）</a></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
+</tr>
+
+<tr>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://wwbce.lanzouu.com/b0139kjp3c">[外链 - 蓝奏云] 高等数学复习指南_整活版</a></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
+</tr>
+
+<tr>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://wwbce.lanzouu.com/b0139kjp3c">[外链 - 蓝奏云] include/linux/list.h</a></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
+</tr>
+
+<tr>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://pan.baidu.com/s/13YbJabyLN70KmvHoQ81LNg?pwd=xq5k">[外链 - 度盘]高等应用数学问题的MATLAB求解 (第四版)</a></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
+</tr>
+
+<tr>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://rust-book.cs.brown.edu/">[外链 - 官方] The Rust Programming Language</a></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">Rust 入门</td>
+</tr>
+<tr>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://cplusplus.com/">[外链 - 官方] C Plus Plus</a></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">权威的C++教程、参考</td>
+</tr>
+<tr>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://github.com/Yoget/Tongji-University-Advanced-Mathematics/tree/main">[外链 - Github] 高数 · 同济版 、 概率论 · 浙大版</a></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
+</tr>
+
+<tr>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><a href="https://github.com/huangtinglin/Linear-Algebra-and-Its-Applications-notes">[外链 - Github] 《线性代数及其应用》笔记</a></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
 </tr>
 
@@ -83,5 +207,6 @@
 </tr>
 </table>
 </center>
+</div>
 </body>
 </html>
