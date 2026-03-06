@@ -1,1137 +1,1016 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sheng OovLeí - 随机笑话</title>
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- GSAP for Advanced Animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #0000DE;
-            --secondary: #0037da;
-            --accent: #4a6fff;
-            --dark: #f5f5f5;
-            --darker: #ffffff;
-            --cream: #fffdfc;
-            --text: #1a1a2e;
-            --text-light: #4a5568;
-            --evil-purple: #8b5cf6;
-            --evil-pink: #ec4899;
-        }
-
-        body {
-            font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
-            background: #f8f9fa;
-            color: var(--text);
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        /* Evil Animated Gradient Background */
-        .gradient-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background:
-                radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(236, 72, 153, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(0, 0, 222, 0.04) 0%, transparent 50%);
-            animation: gradientShift 15s ease infinite;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% {
-                background:
-                    radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
-                    radial-gradient(ellipse at 80% 80%, rgba(236, 72, 153, 0.06) 0%, transparent 50%),
-                    radial-gradient(ellipse at 50% 50%, rgba(0, 0, 222, 0.04) 0%, transparent 50%);
-            }
-            50% {
-                background:
-                    radial-gradient(ellipse at 80% 20%, rgba(236, 72, 153, 0.07) 0%, transparent 50%),
-                    radial-gradient(ellipse at 20% 80%, rgba(139, 92, 246, 0.09) 0%, transparent 50%),
-                    radial-gradient(ellipse at 50% 50%, rgba(0, 55, 218, 0.05) 0%, transparent 50%);
-            }
-        }
-
-        /* Canvas for particles */
-        #particles-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* Glassmorphism Card */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(139, 92, 246, 0.15);
-            border-radius: 24px;
-            box-shadow:
-                0 8px 32px rgba(0, 0, 0, 0.08),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8);
-        }
-
-        /* Navigation Links */
-        .nav-link {
-            position: relative;
-            padding: 12px 24px;
-            color: var(--text-light);
-            text-decoration: none;
-            border-radius: 12px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            overflow: hidden;
-        }
-
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(236, 72, 153, 0.08));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            border-radius: 12px;
-        }
-
-        .nav-link:hover {
-            color: var(--evil-purple);
-            transform: translateX(8px);
-            background: rgba(139, 92, 246, 0.05);
-        }
-
-        .nav-link:hover::before {
-            opacity: 1;
-        }
-
-        .nav-link i {
-            position: relative;
-            z-index: 1;
-        }
-
-        .nav-link span {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Animated Divider */
-        .divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.2), transparent);
-            margin: 20px 0;
-        }
-
-        /* Main Content Area */
-        .content-area {
-            min-height: 500px;
-            padding: 40px;
-        }
-
-        /* Glowing Text Effect */
-        .glow-text {
-            text-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
-        }
-
-        /* Floating Animation */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .float-animation {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* Pulse Ring */
-        .pulse-ring {
-            position: relative;
-        }
-
-        .pulse-ring::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            border-radius: 28px;
-            background: linear-gradient(135deg, #8b5cf6, #ec4899);
-            opacity: 0;
-            animation: pulseRing 2s ease-out infinite;
-            z-index: -1;
-        }
-
-        @keyframes pulseRing {
-            0% {
-                opacity: 0.6;
-                transform: scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(1.1);
-            }
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.05);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #8b5cf6, #ec4899);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #ec4899, #8b5cf6);
-        }
-
-        /* Section Title */
-        .section-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title i {
-            flex-shrink: 0;
-        }
-
-        .section-title span {
-            color: #ffffff;
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 30px;
-            color: var(--text-light);
-            font-size: 0.875rem;
-        }
-
-        .footer a {
-            color: var(--text-light);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer a:hover {
-            color: var(--evil-purple);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .main-container {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar {
-                order: 2;
-            }
-
-            .content-area {
-                order: 1;
-                padding: 24px;
-            }
-        }
-
-        /* Evil Button */
-        .evil-button {
-            position: relative;
-            padding: 14px 32px;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #ffffff;
-            background: linear-gradient(135deg, #8b5cf6, #ec4899);
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
-        }
-
-        .evil-button:hover {
-            background: linear-gradient(135deg, #ec4899, #8b5cf6);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
-        }
-
-        .evil-button:active {
-            transform: translateY(0) scale(0.98);
-        }
-
-        .evil-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            background: #9ca3af;
-            box-shadow: none;
-        }
-
-        /* Category Selector */
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 12px;
-            margin-top: 20px;
-        }
-
-        .category-item {
-            position: relative;
-            padding: 16px;
-            background: rgba(255, 255, 255, 0.6);
-            border: 2px solid rgba(139, 92, 246, 0.15);
-            border-radius: 16px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .category-item:hover {
-            transform: translateY(-4px);
-            border-color: rgba(139, 92, 246, 0.3);
-            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.15);
-        }
-
-        .category-item.active {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(236, 72, 153, 0.15));
-            border-color: #8b5cf6;
-        }
-
-        .category-item i {
-            font-size: 24px;
-            color: var(--evil-purple);
-        }
-
-        .category-item span {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--text);
-        }
-
-        /* Joke Display Area */
-        .joke-container {
-            margin-top: 32px;
-            display: none;
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        .joke-container.active {
-            display: block;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .joke-card {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(236, 72, 153, 0.05));
-            border: 2px solid rgba(139, 92, 246, 0.2);
-            border-radius: 20px;
-            padding: 32px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .joke-card::before {
-            content: '""';
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 60px;
-            color: rgba(139, 92, 246, 0.1);
-            font-family: Georgia, serif;
-            line-height: 1;
-        }
-
-        .joke-content {
-            font-size: 1.25rem;
-            line-height: 1.8;
-            color: var(--text);
-            margin-bottom: 16px;
-        }
-
-        .joke-setup {
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .joke-delivery {
-            color: var(--text-light);
-            font-style: italic;
-            padding: 16px;
-            background: rgba(236, 72, 153, 0.08);
-            border-radius: 12px;
-            border-left: 4px solid #ec4899;
-        }
-
-        .joke-single {
-            font-style: italic;
-        }
-
-        /* Reveal Button */
-        .reveal-button {
-            margin-top: 16px;
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #ec4899, #8b5cf6);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .reveal-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
-        }
-
-        /* Joke Info */
-        .joke-info {
-            margin-top: 20px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(139, 92, 246, 0.2);
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            font-size: 0.875rem;
-            color: var(--text-light);
-        }
-
-        .joke-info span {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .joke-info i {
-            color: var(--evil-purple);
-        }
-
-        /* Shaking Animation for bad jokes */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-
-        .shake {
-            animation: shake 0.5s ease-in-out;
-        }
-
-        /* Loading Spinner */
-        .spinner {
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top-color: #ffffff;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Evil Rating System */
-        .rating-system {
-            margin-top: 16px;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .rating-btn {
-            padding: 10px 20px;
-            border: 2px solid rgba(139, 92, 246, 0.3);
-            background: transparent;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            color: var(--text-light);
-        }
-
-        .rating-btn:hover {
-            background: rgba(139, 92, 246, 0.1);
-            border-color: #8b5cf6;
-            transform: scale(1.05);
-        }
-
-        .rating-btn.good:hover {
-            background: rgba(34, 197, 94, 0.1);
-            border-color: #22c55e;
-        }
-
-        .rating-btn.bad:hover {
-            background: rgba(239, 68, 68, 0.1);
-            border-color: #ef4444;
-        }
-
-        .rating-btn.evil:hover {
-            background: rgba(139, 92, 246, 0.2);
-            border-color: #8b5cf6;
-        }
-
-        /* Stats Counter */
-        .stats-container {
-            display: flex;
-            gap: 24px;
-            margin-top: 24px;
-            padding: 20px;
-            background: rgba(139, 92, 246, 0.05);
-            border-radius: 16px;
-            border: 1px solid rgba(139, 92, 246, 0.1);
-        }
-
-        .stat-item {
-            text-align: center;
-            flex: 1;
-        }
-
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #8b5cf6, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .stat-label {
-            font-size: 0.875rem;
-            color: var(--text-light);
-            margin-top: 4px;
-        }
-
-        /* Warning Banner */
-        .warning-banner {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(139, 92, 246, 0.1));
-            border: 2px solid rgba(239, 68, 68, 0.3);
-            border-radius: 16px;
-            padding: 16px 20px;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .warning-banner i {
-            color: #ef4444;
-            font-size: 24px;
-            flex-shrink: 0;
-        }
-
-        .warning-banner p {
-            color: var(--text);
-            font-size: 0.95rem;
-        }
-
-        .warning-banner.hidden {
-            display: none;
-        }
-    </style>
+<title>随机笑话 - Sheng OovLei</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style type="text/css">
+/* 移动端适配 */
+@media screen and (max-width: 980px) {
+  center table {
+    width: 95% !important;
+  }
+
+  center table td[width="210"],
+  center table td[width="210"] + td {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  center table pre {
+    display: none;
+  }
+
+  font[size="5"] {
+    font-size: 22px !important;
+  }
+  font[size="3"] {
+    font-size: 16px !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  center table {
+    width: 98% !important;
+    border-width: 2px !important;
+  }
+
+  center table td {
+    padding: 6px 4px !important;
+  }
+
+  font[size="5"] {
+    font-size: 18px !important;
+  }
+  font[size="3"] {
+    font-size: 14px !important;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .category-item {
+    padding: 10px !important;
+    font-size: 12px !important;
+  }
+}
+
+body {
+  overflow-x: hidden;
+  word-wrap: break-word;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #0000DE;
+  --secondary: #0037da;
+  --accent: #A00000;
+  --bg-light: #EEEEEE;
+  --bg-cream: #fffdfc;
+  --text-dark: #000000;
+  --border-dark: #600000;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg-light);
+  color: var(--text-dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.1) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  z-index: 9999;
+  opacity: 0.25;
+}
+
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  animation: slideIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.header {
+  background: var(--bg-cream);
+  border: 3px solid var(--border-dark);
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+  animation: headerPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s both;
+}
+
+@keyframes headerPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(-3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.cat-ascii {
+  font-size: 14px;
+  color: var(--accent);
+  font-weight: bold;
+  margin-bottom: 15px;
+  white-space: pre;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  color: #0000F0;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 0 rgba(0, 0, 222, 0.2);
+}
+
+.header h1 span {
+  display: inline-block;
+  animation: wave 2s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.header p {
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+.content-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 20px;
+}
+
+.sidebar {
+  background: var(--primary);
+  border: 3px solid var(--border-dark);
+  padding: 20px;
+  color: #fff;
+  animation: slideInLeft 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.4s both;
+  position: relative;
+  overflow: visible;
+}
+
+.sidebar-cat {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 1;
+  z-index: 100;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.sidebar-cat .cat-body {
+  position: relative;
+  display: inline-block;
+}
+
+.sidebar-cat .cat-face {
+  font-size: 20px;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.sidebar-cat .cat-bubbles {
+  position: absolute;
+  top: -25px;
+  right: 0;
+  font-size: 14px;
+  opacity: 0;
+  color: #FFFFFF;
+}
+
+.sidebar-cat .cat-zzz {
+  position: absolute;
+  top: -30px;
+  right: 5px;
+  font-size: 12px;
+  opacity: 0;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.sidebar-cat .cat-heart {
+  position: absolute;
+  top: -22px;
+  right: -10px;
+  font-size: 12px;
+  opacity: 0;
+  color: #FFFFFF;
+}
+
+.sidebar-cat:hover {
+  transform: scale(1.1);
+}
+
+.sidebar-cat:active {
+  transform: scale(0.95);
+}
+
+.sidebar-cat.sleeping .cat-bubbles {
+  animation: bubbles 2s ease-in-out 3;
+}
+
+.sidebar-cat.sleeping .cat-face {
+  animation: sleeping 1s ease-in-out 6;
+}
+
+.sidebar-cat.snoring .cat-zzz {
+  animation: zzz 2s ease-in-out 3;
+}
+
+.sidebar-cat.loving .cat-heart {
+  animation: heartFloat 1.5s ease-in-out 4;
+}
+
+.sidebar-cat.blinking .cat-face {
+  animation: blink 3s ease-in-out 2;
+}
+
+.sidebar-cat.stretching .cat-body {
+  animation: stretch 0.5s ease-in-out 2;
+}
+
+.sidebar-cat.jumping .cat-body {
+  animation: jump 0.8s ease-in-out 5;
+}
+
+.sidebar-cat.spinning .cat-body {
+  animation: spin 1s ease-in-out 4;
+}
+
+.sidebar-cat.shaking .cat-body {
+  animation: shake 0.5s ease-in-out 6;
+}
+
+.sidebar-cat.bouncing .cat-body {
+  animation: bounce 0.6s ease-in-out 5;
+}
+
+.sidebar-cat.dancing .cat-body {
+  animation: dance 1s ease-in-out 4;
+}
+
+@keyframes bubbles {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1);
+  }
+}
+
+@keyframes sleeping {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes zzz {
+  0% {
+    opacity: 0;
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-15px) translateX(5px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-25px) translateX(10px);
+  }
+}
+
+@keyframes heartFloat {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-15px) scale(1.2);
+  }
+}
+
+@keyframes blink {
+  0%, 45%, 55%, 100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes stretch {
+  0%, 100% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(1.2);
+  }
+}
+
+@keyframes jump {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px) rotate(-5deg);
+  }
+  75% {
+    transform: translateX(10px) rotate(5deg);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0) scale(1, 1);
+  }
+  50% {
+    transform: translateY(-15px) scale(0.9, 1.1);
+  }
+}
+
+@keyframes dance {
+  0%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(-5px) rotate(-10deg);
+  }
+  50% {
+    transform: translateX(5px) rotate(10deg);
+  }
+  75% {
+    transform: translateX(-5px) rotate(-5deg);
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px) rotate(-5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
+  }
+}
+
+.sidebar-section {
+  margin-bottom: 25px;
+}
+
+.sidebar-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-link {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 0;
+  position: relative;
+  transform-origin: left center;
+}
+
+.sidebar-link::before {
+  content: "▪ ";
+  color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.sidebar-link:hover {
+  color: #FFFFC0;
+  transform: translateX(8px) rotate(2deg) scale(1.05);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.sidebar-link:hover::before {
+  content: "▶ ";
+  color: #FFFFC0;
+  transform: scale(1.3) rotate(15deg);
+  display: inline-block;
+}
+
+.sidebar-link::before {
+  content: "▪ ";
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.main-content {
+  background: var(--bg-cream);
+  border: 3px solid var(--border-dark);
+  padding: 30px;
+  animation: slideInRight 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.5s both;
+}
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px) rotate(5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
+  }
+}
+
+.section-title {
+  font-size: 1.5rem;
+  color: var(--secondary);
+  margin-bottom: 15px;
+  border-bottom: 2px solid var(--secondary);
+  padding-bottom: 10px;
+}
+
+.description {
+  margin-bottom: 20px;
+  line-height: 1.8;
+}
+
+.description a {
+  color: var(--secondary);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--secondary);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.description a:hover {
+  background: var(--secondary);
+  color: #fff;
+}
+
+.note {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.category-item {
+  background: #FFFFC0;
+  border: 3px outset #E0E080;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  font-size: 14px;
+  animation: buttonPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.category-item:nth-child(1) { animation-delay: 0.6s; }
+.category-item:nth-child(2) { animation-delay: 0.7s; }
+.category-item:nth-child(3) { animation-delay: 0.8s; }
+.category-item:nth-child(4) { animation-delay: 0.9s; }
+.category-item:nth-child(5) { animation-delay: 1.0s; }
+.category-item:nth-child(6) { animation-delay: 1.1s; }
+.category-item:nth-child(7) { animation-delay: 1.2s; }
+
+@keyframes buttonPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.category-item:hover {
+  background: #FFFFD0;
+  transform: scale(1.05);
+}
+
+.category-item.active {
+  background: linear-gradient(180deg, #FFFFD0 0%, #FFFFA0 100%);
+  border-style: inset;
+}
+
+.retro-btn {
+  position: relative;
+  padding: 15px 30px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-dark);
+  background: linear-gradient(180deg, #FFFFC0 0%, #FFFF80 100%);
+  border: 3px outset #E0E080;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  animation: buttonPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.6s both;
+}
+
+.retro-btn:hover:not(:disabled) {
+  background: linear-gradient(180deg, #FFFFD0 0%, #FFFFA0 100%);
+}
+
+.retro-btn:active:not(:disabled) {
+  border-style: inset;
+  transform: scale(0.95) !important;
+}
+
+.retro-btn:disabled {
+  color: #888;
+  background: #CCCCCC;
+  border-color: #999;
+  cursor: not-allowed;
+}
+
+.btn-container {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 30px 0;
+}
+
+.joke-display {
+  background: #FFFFFF;
+  border: 4px inset #CCCCCC;
+  padding: 20px;
+  margin-top: 30px;
+  display: none;
+  animation: reveal 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.joke-display.active {
+  display: block;
+}
+
+@keyframes reveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-10deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.joke-content {
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
+
+.joke-setup {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.joke-delivery {
+  font-style: italic;
+  padding: 15px;
+  background: var(--bg-light);
+  border-left: 4px solid var(--accent);
+  margin-top: 15px;
+}
+
+.joke-single {
+  font-style: italic;
+}
+
+.joke-info {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 2px solid var(--secondary);
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+.reveal-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: linear-gradient(180deg, #FFFFC0 0%, #FFFF80 100%);
+  border: 3px outset #E0E080;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.reveal-btn:hover {
+  background: linear-gradient(180deg, #FFFFD0 0%, #FFFFA0 100%);
+}
+
+.reveal-btn:active {
+  border-style: inset;
+}
+
+.loading {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 3px solid #000;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s steps(8) infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 30px;
+  color: var(--text-dark);
+  font-size: 14px;
+  animation: fadeIn 0.6s ease 1s both;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.footer a {
+  color: var(--secondary);
+  text-decoration: none;
+}
+
+.warning-banner {
+  background: #FFE0E0;
+  border: 3px solid #FF0000;
+  padding: 15px;
+  margin-bottom: 20px;
+  display: none;
+}
+
+.warning-banner.active {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .content-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    order: 2;
+  }
+
+  .main-content {
+    order: 1;
+  }
+
+  .btn-container {
+    flex-direction: column;
+  }
+
+  .retro-btn {
+    transform-origin: center center !important;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+  }
+
+  .cat-ascii {
+    font-size: 10px;
+  }
+}
+</style>
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="gradient-bg"></div>
-    <canvas id="particles-canvas"></canvas>
-
-    <!-- Main Container -->
-    <div class="main-container max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-4 gap-8">
-
-        <!-- Sidebar -->
-        <aside class="sidebar lg:col-span-1">
-            <div class="glass-card p-6 sticky top-8 float-animation">
-                <!-- Profile Section -->
-                <div class="text-center mb-6">
-                    <div class="w-20 h-20 mx-auto mb-4 rounded-full flex items-center justify-center text-3xl font-bold text-white pulse-ring" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">
-                        J
-                    </div>
-                    <h2 class="text-xl font-bold glow-text">Sheng OovLeí</h2>
-                    <p class="text-sm text-gray-500 mt-1">随机笑话生成器</p>
-                </div>
-
-                <div class="divider"></div>
-
-                <!-- Navigation Menu -->
-                <nav class="space-y-2">
-                    <div class="section-title">
-                        <i data-lucide="compass" class="w-5 h-5"></i>
-                        <span>导航</span>
-                    </div>
-
-                    <a href="../index.html" class="nav-link">
-                        <i data-lucide="home" class="w-5 h-5"></i>
-                        <span>首页</span>
-                    </a>
-
-                    <a href="../blog_idx.html" class="nav-link">
-                        <i data-lucide="book-open" class="w-5 h-5"></i>
-                        <span>我的 Blog</span>
-                    </a>
-
-                    <a href="../utility_idx.html" class="nav-link">
-                        <i data-lucide="lightbulb" class="w-5 h-5"></i>
-                        <span>有趣线上小巧思</span>
-                    </a>
-
-                    <a href="../books_idx.html" class="nav-link">
-                        <i data-lucide="book-open" class="w-5 h-5"></i>
-                        <span>线上学习资料</span>
-                    </a>
-                </nav>
-
-                <div class="divider"></div>
-
-                <!-- Contact Section -->
-                <nav class="space-y-2">
-                    <div class="section-title">
-                        <i data-lucide="users" class="w-5 h-5"></i>
-                        <span>联系我</span>
-                    </div>
-
-                    <a href="https://github.com/SolynAcVersion" target="_blank" class="nav-link">
-                        <i data-lucide="github" class="w-5 h-5"></i>
-                        <span>GitHub</span>
-                    </a>
-
-                    <a href="https://www.cnblogs.com/yldeveloper" target="_blank" class="nav-link">
-                        <i data-lucide="pen-tool" class="w-5 h-5"></i>
-                        <span>博客园</span>
-                    </a>
-
-                    <a href="mailto:shengoovlei@gmail.com" class="nav-link">
-                        <i data-lucide="mail" class="w-5 h-5"></i>
-                        <span>邮箱</span>
-                    </a>
-
-                    <a href="https://space.bilibili.com/1798980964" target="_blank" class="nav-link">
-                        <i data-lucide="tv" class="w-5 h-5"></i>
-                        <span>Bilibili</span>
-                    </a>
-
-                    <a href="http://wpa.qq.com/msgrd?v=3&uin=2161517829&site=qq&menu=yes" target="_blank" class="nav-link">
-                        <i data-lucide="message-circle" class="w-5 h-5"></i>
-                        <span>QQ - 请备注来意</span>
-                    </a>
-                </nav>
-
-                <div class="divider"></div>
-
-                <!-- Stats -->
-                <div class="stats-container" style="margin-top: 16px;">
-                    <div class="stat-item">
-                        <div class="stat-value" id="goodJokesCount">0</div>
-                        <div class="stat-label">好笑</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="badJokesCount">0</div>
-                        <div class="stat-label">冷笑话</div>
-                    </div>
-                </div>
-            </div>
-        </aside>
-
-        <!-- Main Content Area -->
-        <main class="content-area lg:col-span-3">
-            <div class="glass-card min-h-[600px]">
-                <div class="p-8">
-                    <!-- Page Title -->
-                    <div class="mb-8">
-                        <h1 class="text-4xl font-bold mb-4" style="background: linear-gradient(135deg, #8b5cf6, #ffffff, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-                            随机笑话生成器
-                        </h1>
-                        <p class="text-gray-600 text-lg">
-                            各种类型的随机笑话。
-                            <br>支持多种分类。
-                            <br><span style="color: #8b5cf6;">注：黑色幽默分类可能包含不当内容，请谨慎 (?) 选择</span>
-                        </p>
-                    </div>
-
-                    <div class="divider"></div>
-
-                    <!-- Warning Banner for Dark Jokes -->
-                    <div id="warningBanner" class="warning-banner hidden">
-                        <p>
-                            <strong>你启用了 DARK JOKES</strong><br>
-                            最解构的一集。<br>
-                            保命: 笑话内容随机抽取自外部数据库, API 随机调用, 不代表本人观点
-                        </p>
-                    </div>
-
-                    <!-- Category Selection -->
-                    <div class="mb-8">
-                        <h3 class="text-xl font-semibold mb-4" style="color: var(--evil-purple);">
-                            <i data-lucide="tags" class="inline w-5 h-5 mr-2"></i>
-                            选择笑话分类
-                        </h3>
-                        <div class="category-grid">
-                            <div class="category-item active" data-category="Any">
-                                <i data-lucide="shuffle" class="w-6 h-6"></i>
-                                <span>随机</span>
-                            </div>
-                            <div class="category-item" data-category="Programming">
-                                <i data-lucide="code" class="w-6 h-6"></i>
-                                <span>编程</span>
-                            </div>
-                            <div class="category-item" data-category="Misc">
-                                <i data-lucide="layers" class="w-6 h-6"></i>
-                                <span>杂项</span>
-                            </div>
-                            <div class="category-item" data-category="Dark">
-                                <i data-lucide="moon" class="w-6 h-6"></i>
-                                <span>黑色幽默</span>
-                            </div>
-                            <div class="category-item" data-category="Pun">
-                                <i data-lucide="smile" class="w-6 h-6"></i>
-                                <span>双关</span>
-                            </div>
-                            <div class="category-item" data-category="Spooky">
-                                <i data-lucide="ghost" class="w-6 h-6"></i>
-                                <span>恐怖</span>
-                            </div>
-                            <div class="category-item" data-category="Christmas">
-                                <i data-lucide="gift" class="w-6 h-6"></i>
-                                <span>圣诞</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="divider"></div>
-
-                    <!-- Fetch Button -->
-                    <div class="text-center flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
-                        <button id="fetchJokeBtn" class="evil-button">
-                            <i data-lucide="zap"></i>
-                            <span>Come On</span>
-                        </button>
-                    </div>
-
-                    <!-- Joke Display Container -->
-                    <div id="jokeContainer" class="joke-container">
-                        <div class="joke-card">
-                            <div id="jokeContent" class="joke-content"></div>
-                            <div id="deliveryContainer" style="display: none;">
-                                <button id="revealBtn" class="reveal-button">
-                                    <i data-lucide="eye"></i>
-                                    <span>显示答案</span>
-                                </button>
-                                <div id="jokeDelivery" class="joke-delivery" style="display: none; margin-top: 16px;"></div>
-                            </div>
-                            <div class="joke-info">
-                                <span id="jokeCategory">
-                                    <i data-lucide="tag"></i>
-                                    <span id="categoryText">编程</span>
-                                </span>
-                                <span id="jokeType">
-                                    <i data-lucide="layers"></i>
-                                    <span id="typeText">双段</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer mt-12">
-        <p>© 2026 Sheng OovLeí</p>
-        <p class="mt-2">
-            Powered by <a href="https://sv443.net/jokeapi/v2/" target="_blank">JokeAPI</a>
-        </p>
-    </footer>
-
-    <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
-
-        // Particle Animation System
-        const canvas = document.getElementById('particles-canvas');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const particles = [];
-        const particleCount = 80;
-        const mouse = { x: null, y: null, radius: 150 };
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
-                this.opacity = Math.random() * 0.5 + 0.2;
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
-
-                // Mouse interaction
-                if (mouse.x !== null && mouse.y !== null) {
-                    const dx = mouse.x - this.x;
-                    const dy = mouse.y - this.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < mouse.radius) {
-                        const force = (mouse.radius - distance) / mouse.radius;
-                        const directionX = dx / distance;
-                        const directionY = dy / distance;
-                        this.x -= directionX * force * 2;
-                        this.y -= directionY * force * 2;
-                    }
-                }
-            }
-
-            draw() {
-                ctx.fillStyle = `rgba(139, 92, 246, ${this.opacity * 0.6})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function init() {
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function connectParticles() {
-            for (let a = 0; a < particles.length; a++) {
-                for (let b = a + 1; b < particles.length; b++) {
-                    const dx = particles[a].x - particles[b].x;
-                    const dy = particles[a].y - particles[b].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 120) {
-                        const opacity = (120 - distance) / 120 * 0.1;
-                        ctx.strokeStyle = `rgba(139, 92, 246, ${opacity})`;
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[a].x, particles[a].y);
-                        ctx.lineTo(particles[b].x, particles[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-            }
-
-            connectParticles();
-            requestAnimationFrame(animate);
-        }
-
-        init();
-        animate();
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
-        });
-
-        window.addEventListener('mouseout', () => {
-            mouse.x = null;
-            mouse.y = null;
-        });
-
-        // GSAP Animations
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Animate glass cards on load
-        gsap.from('.glass-card', {
-            duration: 1.2,
-            y: 60,
-            opacity: 0,
-            ease: 'power3.out'
-        });
-
-        // Category Selection
-        const categoryItems = document.querySelectorAll('.category-item');
-        const warningBanner = document.getElementById('warningBanner');
-        let selectedCategory = 'Any';
-
-        categoryItems.forEach(item => {
-            item.addEventListener('click', () => {
-                // Remove active class from all items
-                categoryItems.forEach(cat => cat.classList.remove('active'));
-                // Add active class to clicked item
-                item.classList.add('active');
-                selectedCategory = item.dataset.category;
-
-                // Show/hide warning banner for Dark jokes
-                if (selectedCategory === 'Dark') {
-                    warningBanner.classList.remove('hidden');
-                    gsap.from(warningBanner, {
-                        duration: 0.5,
-                        opacity: 0,
-                        y: -10,
-                        ease: 'power2.out'
-                    });
-                } else {
-                    warningBanner.classList.add('hidden');
-                }
-            });
-        });
-
-        // Joke Fetching
-        const fetchJokeBtn = document.getElementById('fetchJokeBtn');
-        const jokeContainer = document.getElementById('jokeContainer');
-        const jokeContent = document.getElementById('jokeContent');
-        const deliveryContainer = document.getElementById('deliveryContainer');
-        const jokeDelivery = document.getElementById('jokeDelivery');
-        const revealBtn = document.getElementById('revealBtn');
-        const categoryText = document.getElementById('categoryText');
-        const typeText = document.getElementById('typeText');
-
-        // Stats
-        let goodJokesCount = 0;
-        let badJokesCount = 0;
-        const goodJokesCountEl = document.getElementById('goodJokesCount');
-        const badJokesCountEl = document.getElementById('badJokesCount');
-
-        fetchJokeBtn.addEventListener('click', async () => {
-            // Show loading state
-            fetchJokeBtn.innerHTML = '<div class="spinner"></div><span>正在寻找笑话...</span>';
-            fetchJokeBtn.disabled = true;
-
-            try {
-                // Build API URL
-                let apiUrl = 'https://v2.jokeapi.dev/joke/';
-
-                if (selectedCategory === 'Any') {
-                    apiUrl += 'Any';
-                } else {
-                    apiUrl += selectedCategory;
-                }
-
-                // Add parameters - only use safe-mode for non-Dark categories
-                if (selectedCategory !== 'Dark') {
-                    apiUrl += '?safe-mode';
-                }
-
-                const response = await fetch(apiUrl);
-
-                if (!response.ok) {
-                    throw new Error('API 请求失败');
-                }
-
-                const data = await response.json();
-
-                // Update category display
-                const categoryNames = {
-                    'Any': '随机',
-                    'Programming': '编程',
-                    'Misc': '杂项',
-                    'Dark': '黑色幽默',
-                    'Pun': '双关语',
-                    'Spooky': '恐怖',
-                    'Christmas': '圣诞'
-                };
-                categoryText.textContent = categoryNames[data.category] || data.category;
-                typeText.textContent = data.type === 'single' ? '单段式' : '双段式';
-
-                // Display joke
-                jokeContainer.classList.add('active');
-
-                if (data.type === 'single') {
-                    jokeContent.innerHTML = `<div class="joke-single">${data.joke}</div>`;
-                    deliveryContainer.style.display = 'none';
-
-                    // Animate content
-                    gsap.fromTo(jokeContent,
-                        { opacity: 0, y: 20 },
-                        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
-                    );
-                } else {
-                    jokeContent.innerHTML = `<div class="joke-setup">${data.setup}</div>`;
-                    jokeDelivery.textContent = data.delivery;
-                    deliveryContainer.style.display = 'block';
-                    jokeDelivery.style.display = 'none';
-                    revealBtn.style.display = 'inline-flex';
-
-                    // Animate content
-                    gsap.fromTo(jokeContent,
-                        { opacity: 0, y: 20 },
-                        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
-                    );
-                }
-
-                // Scroll to joke
-                jokeContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-            } catch (error) {
-                console.error('获取笑话失败:', error);
-                alert('获取笑话失败了，请再试一次。');
-            } finally {
-                fetchJokeBtn.innerHTML = '<i data-lucide="zap"></i><span>给我来个笑话！</span>';
-                lucide.createIcons();
-                fetchJokeBtn.disabled = false;
-            }
-        });
-
-        // Reveal button
-        revealBtn.addEventListener('click', () => {
-            jokeDelivery.style.display = 'block';
-            revealBtn.style.display = 'none';
-
-            // Animate delivery
-            gsap.fromTo(jokeDelivery,
-                { opacity: 0, y: 10 },
-                { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
-            );
-        });
-
-        // Rating system
-        const ratingBtns = document.querySelectorAll('.rating-btn');
-
-        ratingBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const rating = btn.dataset.rating;
-
-                if (rating === 'good') {
-                    goodJokesCount++;
-                    goodJokesCountEl.textContent = goodJokesCount;
-
-                    // Happy animation
-                    gsap.to(btn, {
-                        scale: 1.2,
-                        duration: 0.2,
-                        yoyo: true,
-                        repeat: 1
-                    });
-                } else if (rating === 'bad') {
-                    badJokesCount++;
-                    badJokesCountEl.textContent = badJokesCount;
-
-                    // Shake animation for bad joke
-                    gsap.to(jokeContainer, {
-                        x: [-10, 10, -10, 10, 0],
-                        duration: 0.5,
-                        ease: 'power2.inOut'
-                    });
-                } else if (rating === 'evil') {
-                    goodJokesCount += 2;
-                    goodJokesCountEl.textContent = goodJokesCount;
-
-                    gsap.to(jokeContainer, {
-                        scale: [1, 1.02, 1],
-                        duration: 0.3,
-                        ease: 'power2.inOut'
-                    });
-                }
-
-                // Visual feedback
-                ratingBtns.forEach(b => b.style.opacity = '0.5');
-                btn.style.opacity = '1';
-
-                setTimeout(() => {
-                    ratingBtns.forEach(b => b.style.opacity = '1');
-                }, 300);
-            });
-        });
-
-        // Add hover animations to category items
-        categoryItems.forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                gsap.to(item, {
-                    scale: 1.05,
-                    duration: 0.3,
-                    ease: 'power2.out'
-                });
-            });
-
-            item.addEventListener('mouseleave', () => {
-                gsap.to(item, {
-                    scale: 1,
-                    duration: 0.3,
-                    ease: 'power2.out'
-                });
-            });
-        });
-    </script>
+<div class="crt-overlay"></div>
+
+<div class="main-container">
+  <header class="header">
+    <div class="cat-ascii">    /\_/\&#10;   ( o.o )&#10;    &gt; ^ &lt;</div>
+    <h1><span style="animation-delay: 0s">随</span><span style="animation-delay: 0.1s">机</span><span style="animation-delay: 0.2s">笑</span><span style="animation-delay: 0.3s">话</span></h1>
+    <p>JokeAPI 笑话生成器</p>
+  </header>
+
+  <div class="content-layout">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-title">
+          <br><br><br><br><br><br>
+          导航
+          <div class="sidebar-cat" id="sidebarCat">
+            <span class="cat-body">
+              <span class="cat-face">=^_^=</span>
+              <span class="cat-bubbles">○</span>
+              <span class="cat-zzz">Z</span>
+              <span class="cat-heart">♥</span>
+            </span>
+          </div>
+        </div>
+        <a href="../index.html" class="sidebar-link">首页</a>
+        <a href="../blog_idx.html" class="sidebar-link">我的Blog</a>
+        <a href="../utility_idx.html" class="sidebar-link">有趣线上小巧思</a>
+        <a href="../books_idx.html" class="sidebar-link">线上学习资料</a>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">联系我</div>
+        <a href="https://github.com/SolynAcVersion" target="_blank" class="sidebar-link">GitHub</a>
+        <a href="https://www.cnblogs.com/yldeveloper" target="_blank" class="sidebar-link">博客园</a>
+        <a href="mailto:shengoovlei@gmail.com" class="sidebar-link">邮箱</a>
+        <a href="https://space.bilibili.com/1798980964" target="_blank" class="sidebar-link">Bilibili</a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <h2 class="section-title">关于</h2>
+      <div class="description">
+        调用 <a href="https://sv443.net/jokeapi/v2/" target="_blank">JokeAPI</a>，获取各种类型的随机笑话。
+      </div>
+      <div class="description">
+        支持多种分类：编程、杂项、双关、恐怖、圣诞等。
+      </div>
+      <div class="description">
+        <span class="note">注意：</span>黑色幽默分类可能包含不当内容，请谨慎选择。
+      </div>
+
+      <div id="warningBanner" class="warning-banner">
+        <strong>你启用了 DARK JOKES</strong><br>
+        最解构的一集。<br>
+        保命: 笑话内容随机抽取自外部数据库,不代表本人观点
+      </div>
+
+      <h3 style="margin: 20px 0 15px 0; color: var(--secondary);">选择笑话分类</h3>
+      <div class="category-grid">
+        <div class="category-item active" data-category="Any">随机</div>
+        <div class="category-item" data-category="Programming">编程</div>
+        <div class="category-item" data-category="Misc">杂项</div>
+        <div class="category-item" data-category="Dark">黑色幽默</div>
+        <div class="category-item" data-category="Pun">双关</div>
+        <div class="category-item" data-category="Spooky">恐怖</div>
+        <div class="category-item" data-category="Christmas">圣诞</div>
+      </div>
+
+      <div class="btn-container">
+        <button id="fetchJokeBtn" class="retro-btn">
+          来个笑话！
+        </button>
+      </div>
+
+      <div id="jokeDisplay" class="joke-display">
+        <div id="jokeContent" class="joke-content"></div>
+        <div id="deliveryContainer" style="display: none;">
+          <button id="revealBtn" class="reveal-btn">显示答案</button>
+          <div id="jokeDelivery" class="joke-delivery" style="display: none;"></div>
+        </div>
+        <div class="joke-info">
+          <span id="jokeCategory"></span> | <span id="jokeType"></span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <p>© 2026 Sheng OovLeí</p>
+    <p>Powered by <a href="https://sv443.net/jokeapi/v2/" target="_blank">JokeAPI</a></p>
+  </footer>
+</div>
+
+<script>
+// 小猫随机动作
+const sidebarCat = document.getElementById('sidebarCat');
+const catActions = ['sleeping', 'snoring', 'loving', 'blinking', 'stretching', 'jumping', 'spinning', 'shaking', 'bouncing', 'dancing', ''];
+let currentAction = '';
+let animationTimeout = null;
+
+function setRandomCatAction() {
+  if (currentAction) {
+    sidebarCat.classList.remove(currentAction);
+  }
+
+  const randomIndex = Math.floor(Math.random() * catActions.length);
+  currentAction = catActions[randomIndex];
+
+  if (currentAction) {
+    sidebarCat.classList.add(currentAction);
+
+    let animationDuration = 6000;
+
+    if (animationTimeout) {
+      clearTimeout(animationTimeout);
+    }
+    animationTimeout = setTimeout(() => {
+      setRandomCatAction();
+    }, animationDuration);
+  } else {
+    animationTimeout = setTimeout(() => {
+      setRandomCatAction();
+    }, 1000);
+  }
+}
+
+function triggerCatAction() {
+  if (animationTimeout) {
+    clearTimeout(animationTimeout);
+    animationTimeout = null;
+  }
+
+  if (currentAction) {
+    sidebarCat.classList.remove(currentAction);
+    currentAction = '';
+  }
+
+  const nonEmptyActions = catActions.filter(a => a !== '');
+  const randomIndex = Math.floor(Math.random() * nonEmptyActions.length);
+  currentAction = nonEmptyActions[randomIndex];
+  sidebarCat.classList.add(currentAction);
+
+  animationTimeout = setTimeout(() => {
+    setRandomCatAction();
+  }, 6000);
+}
+
+sidebarCat.addEventListener('click', triggerCatAction);
+setTimeout(setRandomCatAction, 2000);
+
+// 笑话功能
+const categoryItems = document.querySelectorAll('.category-item');
+const warningBanner = document.getElementById('warningBanner');
+const fetchJokeBtn = document.getElementById('fetchJokeBtn');
+const jokeDisplay = document.getElementById('jokeDisplay');
+const jokeContent = document.getElementById('jokeContent');
+const deliveryContainer = document.getElementById('deliveryContainer');
+const jokeDelivery = document.getElementById('jokeDelivery');
+const revealBtn = document.getElementById('revealBtn');
+const jokeCategory = document.getElementById('jokeCategory');
+const jokeType = document.getElementById('jokeType');
+
+let selectedCategory = 'Any';
+
+categoryItems.forEach(item => {
+  item.addEventListener('click', () => {
+    categoryItems.forEach(cat => cat.classList.remove('active'));
+    item.classList.add('active');
+    selectedCategory = item.dataset.category;
+
+    if (selectedCategory === 'Dark') {
+      warningBanner.classList.add('active');
+    } else {
+      warningBanner.classList.remove('active');
+    }
+  });
+});
+
+fetchJokeBtn.addEventListener('click', async () => {
+  fetchJokeBtn.innerHTML = '<div class="loading"></div> 正在寻找笑话...';
+  fetchJokeBtn.disabled = true;
+
+  try {
+    let apiUrl = 'https://v2.jokeapi.dev/joke/';
+
+    if (selectedCategory === 'Any') {
+      apiUrl += 'Any';
+    } else {
+      apiUrl += selectedCategory;
+    }
+
+    if (selectedCategory !== 'Dark') {
+      apiUrl += '?safe-mode';
+    }
+
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      throw new Error('API 请求失败');
+    }
+
+    const data = await response.json();
+
+    const categoryNames = {
+      'Any': '随机',
+      'Programming': '编程',
+      'Misc': '杂项',
+      'Dark': '黑色幽默',
+      'Pun': '双关语',
+      'Spooky': '恐怖',
+      'Christmas': '圣诞'
+    };
+
+    jokeCategory.textContent = categoryNames[data.category] || data.category;
+    jokeType.textContent = data.type === 'single' ? '单段式' : '双段式';
+
+    jokeDisplay.classList.add('active');
+
+    if (data.type === 'single') {
+      jokeContent.innerHTML = `<div class="joke-single">${data.joke}</div>`;
+      deliveryContainer.style.display = 'none';
+    } else {
+      jokeContent.innerHTML = `<div class="joke-setup">${data.setup}</div>`;
+      jokeDelivery.textContent = data.delivery;
+      deliveryContainer.style.display = 'block';
+      jokeDelivery.style.display = 'none';
+      revealBtn.style.display = 'inline-block';
+    }
+
+    jokeDisplay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  } catch (error) {
+    console.error('获取笑话失败:', error);
+    alert('获取笑话失败了，请再试一次。');
+  } finally {
+    fetchJokeBtn.textContent = '来个笑话！';
+    fetchJokeBtn.disabled = false;
+  }
+});
+
+revealBtn.addEventListener('click', () => {
+  jokeDelivery.style.display = 'block';
+  revealBtn.style.display = 'none';
+});
+</script>
 </body>
 </html>

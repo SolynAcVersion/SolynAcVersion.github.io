@@ -207,47 +207,47 @@
 
         /* 小猫动画状态 */
         .sidebar-cat.sleeping .cat-bubbles {
-            animation: bubbles 2s ease-in-out infinite;
+            animation: bubbles 2s ease-in-out 3;
         }
 
         .sidebar-cat.sleeping .cat-face {
-            animation: sleeping 1s ease-in-out infinite;
+            animation: sleeping 1s ease-in-out 6;
         }
 
         .sidebar-cat.snoring .cat-zzz {
-            animation: zzz 2s ease-in-out infinite;
+            animation: zzz 2s ease-in-out 3;
         }
 
         .sidebar-cat.loving .cat-heart {
-            animation: heartFloat 1.5s ease-in-out infinite;
+            animation: heartFloat 1.5s ease-in-out 4;
         }
 
         .sidebar-cat.blinking .cat-face {
-            animation: blink 3s ease-in-out infinite;
+            animation: blink 3s ease-in-out 2;
         }
 
         .sidebar-cat.stretching .cat-body {
-            animation: stretch 0.5s ease-in-out;
+            animation: stretch 0.5s ease-in-out 2;
         }
 
         .sidebar-cat.jumping .cat-body {
-            animation: jump 0.8s ease-in-out infinite;
+            animation: jump 0.8s ease-in-out 5;
         }
 
         .sidebar-cat.spinning .cat-body {
-            animation: spin 1s ease-in-out infinite;
+            animation: spin 1s ease-in-out 4;
         }
 
         .sidebar-cat.shaking .cat-body {
-            animation: shake 0.5s ease-in-out infinite;
+            animation: shake 0.5s ease-in-out 6;
         }
 
         .sidebar-cat.bouncing .cat-body {
-            animation: bounce 0.6s ease-in-out infinite;
+            animation: bounce 0.6s ease-in-out 5;
         }
 
         .sidebar-cat.dancing .cat-body {
-            animation: dance 1s ease-in-out infinite;
+            animation: dance 1s ease-in-out 4;
         }
 
         @keyframes bubbles {
@@ -1013,6 +1013,7 @@
         const sidebarCat = document.getElementById('sidebarCat');
         const catActions = ['sleeping', 'snoring', 'loving', 'blinking', 'stretching', 'jumping', 'spinning', 'shaking', 'bouncing', 'dancing', ''];
         let currentAction = '';
+        let animationTimeout = null;
 
         function setRandomCatAction() {
             // 移除当前动作
@@ -1026,13 +1027,32 @@
 
             if (currentAction) {
                 sidebarCat.classList.add(currentAction);
-            }
 
-            // 10秒后切换下一个动作
-            setTimeout(setRandomCatAction, 10000);
+                // 根据不同的动画设置不同的播放时长
+                let animationDuration = 6000; // 默认6秒（最长的动画时间）
+
+                // 等待动画完整播放后再切换
+                if (animationTimeout) {
+                    clearTimeout(animationTimeout);
+                }
+                animationTimeout = setTimeout(() => {
+                    setRandomCatAction();
+                }, animationDuration);
+            } else {
+                // 如果是空动作，1秒后再试
+                animationTimeout = setTimeout(() => {
+                    setRandomCatAction();
+                }, 1000);
+            }
         }
 
         function triggerCatAction() {
+            // 清除所有现有的定时器
+            if (animationTimeout) {
+                clearTimeout(animationTimeout);
+                animationTimeout = null;
+            }
+
             // 移除当前动作
             if (currentAction) {
                 sidebarCat.classList.remove(currentAction);
@@ -1045,10 +1065,10 @@
             currentAction = nonEmptyActions[randomIndex];
             sidebarCat.classList.add(currentAction);
 
-            // 1秒后恢复正常的随机切换
-            setTimeout(() => {
+            // 等待动画完整播放后再恢复正常循环
+            animationTimeout = setTimeout(() => {
                 setRandomCatAction();
-            }, 1000);
+            }, 6000);
         }
 
         // 点击小猫触发动作
