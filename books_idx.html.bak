@@ -33,48 +33,21 @@ async function checkPassword() {
   const XOR_KEY = 'shengoovlei_link_key_2026';
 
   function xorCrypt(text, key) {
-    const encoder = new TextEncoder();
-    const decoder = new TextDecoder();
-    const data = encoder.encode(text);
-    const keyBytes = encoder.encode(key);
-    const result = new Uint8Array(data.length);
-
-    for (let i = 0; i < data.length; i++) {
-      result[i] = data[i] ^ keyBytes[i % keyBytes.length];
+    let result = '';
+    for (let i = 0; i < text.length; i++) {
+      result += String.fromCharCode(text.charCodeAt(i) ^ key.charCodeAt(i % key.length));
     }
-
-    return decoder.decode(result);
+    return result;
   }
 
   function encryptUrl(plainUrl) {
-    const encoder = new TextEncoder();
-    const decoder = new TextDecoder();
-    const data = encoder.encode(plainUrl);
-    const keyBytes = encoder.encode(XOR_KEY);
-    const result = new Uint8Array(data.length);
-
-    for (let i = 0; i < data.length; i++) {
-      result[i] = data[i] ^ keyBytes[i % keyBytes.length];
-    }
-
-    return btoa(String.fromCharCode(...result));
+    const xorResult = xorCrypt(plainUrl, XOR_KEY);
+    return btoa(xorResult);
   }
 
   function decryptUrl(encryptedUrl) {
-    const binaryStr = atob(encryptedUrl);
-    const data = new Uint8Array(binaryStr.length);
-    for (let i = 0; i < binaryStr.length; i++) {
-      data[i] = binaryStr.charCodeAt(i);
-    }
-
-    const keyBytes = new TextEncoder().encode(XOR_KEY);
-    const result = new Uint8Array(data.length);
-
-    for (let i = 0; i < data.length; i++) {
-      result[i] = data[i] ^ keyBytes[i % keyBytes.length];
-    }
-
-    return new TextDecoder().decode(result);
+    const base64Result = atob(encryptedUrl);
+    return xorCrypt(base64Result, XOR_KEY);
   }
 
   window.LinkEncryptor = {
@@ -188,101 +161,100 @@ function decryptAllLinks() {
 </tr>
 
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK" data-enc-text="KI3B+I780VZBRYHM8YzL5LvR9CR/25uq0d7hg/vXisLQivDwufH5itPVjuP1vLKg1ZrfjN3tgObnlez0">解密中...</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK" data-enc-text="KOWlvumSm05KT+iSsuWkueS7vThJ6aqH56yl5pSZ5ayI5pSy5pyP5Lmh5Yep44Gp562z5Lix54m444Cj">解密中...</span></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
 </tr>
 
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK" data-enc-text="KI3B+I780VZBRYHM8YzL5LvR9CR/25uq0d7hg/vXisLQivDwufH5itPUjuP1vLKg1ZrfjN3tgObnlez0">解密中...</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK" data-enc-text="KOWlvumSm05KT+iSsuWkueS7vThJ6aqH56yl5pSZ5ayI5pSy5pyP5Lmg5Yep44Gp562z5Lix54m444Cj">解密中...</span></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
 </tr>
 
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK" data-enc-text="KI3B+I780VZBRYHM8YzL5LvR9CR/16C70cLbgMr9iNTCicDuuNbWiOv4j97auaeA1o/Tgcf2gN3Rn+zsju3SgcnI">解密中...</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK" data-enc-text="KOWlvumSm05KT+iSsuWkueS7vThJ5ZGW57Cf5aWz57qa5aSs57ug5oGM5LqG5pSJ5Li/6aKq57KO6YC757KI6KaQ">解密中...</span></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
 </tr>
 
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK" data-enc-text="KI3B+I780VZBRYHM8YzL5LvR9CR/1ZaJ0ObLg/vXisLQierjuunfi9HLjPHRctWcngGU4e0=">解密中...</span></td>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
-</tr>
-
-
-<tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK" data-enc-text="KI3B+I780VZBRYHM8YzL5LvR9CR/1Z6l0MD9gMHbh8HM">解密中...</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK">[外链 - 蓝奏云] 离散数学及其应用-第7版</span></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
 </tr>
 
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK" data-enc-text="KI3B+I780VZBRYHM8YzL5LvR9CR/1YqN0PPPgdXEifrGg9nhuen8hsThjOzxsI65Eh6W1MWLw8aKyNtFjtHnjuDFf4/dwriOpt2K/4H85oLq6Z7n1Em4xOKI3cRLgPDw1oiJ0c/+TA==">解密中...</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK">[外链 - 蓝奏云] 算法导论</span></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
 </tr>
 
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK" data-enc-text="KI3B+I780VZBRYHM8YzL5LvR9CR/1YqN0PPPgdXEifrGierjuunfi9HLjPHRsI641ZrfXYLn74DT/w==">解密中...</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK">[外链 - 蓝奏云] 线性代数（慕课版） (张天德 王玮 主编，陈兆英 程涛 副主编)</span></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
 </tr>
 
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK" data-enc-text="KI3B+I780VZBRYHM8YzL5LvR9CR/1IeD08nOgMPBi9bWieDMtvvBTkZ/jvrDu4i+Yk8HAAoAgPXrkfzjgfHWjdblusX7ntGCEN2K+4HU0oPWyZnQ7A==">解密中...</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK">[外链 - 蓝奏云] 线性代数及其应用（第5版）</span></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
 </tr>
 
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK" data-enc-text="KI3B+I780VZBRYHM8YzL5LvR9CR/dEVcUhIFAAATDgMFTAoPfy8GAxsqHwALf3VCU0YbAQYdR1sbHkyK1deE8OCP5s2KxdY=">解密中...</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK">[外链 - 蓝奏云] 深度学习入门 - 基于Python的理论与实现 （鱼书）</span></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
 </tr>
 
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK" data-enc-text="KI3B+I780VZBRYHM8YzL5LvR9CR/1ouh39HhgtLxiMf9idrCtuz2itPVjezy">解密中...</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK">[外链 - 蓝奏云] Fundamentals of Computer Graphics 4th （虎书）</span></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
 </tr>
 
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK" data-enc-text="KI3B+I780VZBRYHM8YzL5LvR9CR/1Jaw0f3vjcDdjO/8iev2uMn3jevUjOzxuaep15vVgNvrgsDTkfjNjebKSYbEyoPKwg==">解密中...</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK">[外链 - 蓝奏云] 仓颉编程快速上手</span></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
 </tr>
 
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK" data-enc-text="KI3B+I780VZBRYHM8YzL5LvR9CR/25yO0+PRgu/IgNP+isjKuMPuX0ZnjvXxtqm23Yr6">解密中...</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK">[外链 - 蓝奏云] 概率论《原神》版教学辅导用书 试读</span></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
 </tr>
 
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK" data-enc-text="KI3B+I780VZBRYHM8YzL5LvR9CR/25uq0d7hg/vXisLQicHku9XJiOfYjujuANSlhtDH04Ln7w==">解密中...</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK">[外链 - 蓝奏云] 鬼吹灯（正篇1-8合集）</span></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
 </tr>
 
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK" data-enc-text="KI3B+I780VZBRYHM8YzL5LvR9CR/W15RWgYMAEELBgEDFEoFNh8dQAM=">解密中...</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK">[外链 - 蓝奏云] 高等数学复习指南_整活版</span></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
 </tr>
 
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkcBAdxDggHDypFBhYyHUMdB0AxByQGDRY6IlJZFAEfJgQOU1Q1EVUPQkEXVR0fUgQ=" data-enc-text="KI3B+I780VZBRYzlyo718wKCzuG4n7nXjOeP8caB+t+TwcOAyMKAzPO48eE0HmZ8c3SV2eeGwMxPXovJxbr38oni10I=">解密中...</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVgQcHFYK">[外链 - 蓝奏云] include/linux/list.h</span></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
 </tr>
 
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkeEBorQQsBBDRFBgpxUEJdQR1GAAoSQA==" data-enc-text="KI3B+I780VZBRYzx9I/40gJLMRE6EmJHRQdINRwICB0XAQgAMQtJIgoxDBAYOFc=">解密中...</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkcBAdxDggHDypFBhYyHUMdB0AxByQGDRY6IlJZFAEfJgQOU1Q1EVUPQkEXVR0fUgQ=">[外链 - 度盘]高等应用数学问题的MATLAB求解 (第四版)</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
+</tr>
+
+<tr>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkeEBorQQsBBDRFBgpxUEJdQR1GAAoSQA==">[外链 - 官方] The Rust Programming Language</span></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">Rust 入门</td>
 </tr>
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkPFQUqHxkCHixFBhYyHQ==" data-enc-text="KI3B+I780VZBRYzx9I/40gJLJlkPXkVBFiMEEB0=">解密中...</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkPFQUqHxkCHixFBhYyHQ==">[外链 - 官方] C Plus Plus</span></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">权威的C++教程、参考</td>
 </tr>
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkLDB03GQtACDAGSiAwVVVGGScHCwkNBkIjAgwfOh4aBx8mRiQdKVNeUVMXRSgPEwcKGw0RADwfRhoZOg5KFD5bXg==" data-enc-text="KI3B+I780VZBRS42GAEbCQJLjNLH1KWCFrHfRYv344nD4oLg10yK7up/jcP7uLy32pjJSKfZR4na74nBzrjl4Q==">解密中...</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkLDB03GQtACDAGSiAwVVVGGScHCwkNBkIjAgwfOh4aBx8mRiQdKVNeUVMXRSgPEwcKGw0RADwfRhoZOg5KFD5bXg==">[外链 - Github] 高数 · 同济版 、 概率论 · 浙大版</span></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
 </tr>
 
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkLDB03GQtACDAGShEqU15VQhoGAgIOAUA6BQsMPh5ELwc4DgcLPh9RXFJeIREdSi4fBgAMCj4YAAEFLEYLFitXQw==" data-enc-text="KI3B+I780VZBRS42GAEbCQJLhvnV1YqN0PPPgdXEifrGierjuunfi9HLjPHRvLK71ZrngMve">解密中...</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkLDB03GQtACDAGShEqU15VQhoGAgIOAUA6BQsMPh5ELwc4DgcLPh9RXFJeIREdSi4fBgAMCj4YAAEFLEYLFitXQw==">[外链 - Github] 《线性代数及其应用》笔记</span></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
 </tr>
 
 <tr>
-<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVxYZFR0M" data-enc-text="KI3B+I780VZBRYzw6o7O6n8IVx4vbxDUqdaP9eiD1vKS1PNJckyP8sG648Wc2L3Xu74=">解密中...</span></td>
+<td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF"><span data-enc-link="GxwRHhRVQFkbEgs8CUcCCjERCgwqHFNdW1wKVV9UVxYZFR0M">[外链 - 密码 c2gp] 查理九世 - 未删减版</span></td>
 <td bgcolor="#fffdfc" border="3" bordercolor="#9CABBF">电子版课本</td>
 </tr>
 
