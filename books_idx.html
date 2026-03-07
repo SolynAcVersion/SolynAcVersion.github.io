@@ -123,13 +123,22 @@ function decryptAllLinks() {
 <body text="#000000" link="#008800" vlink="#0037da" alink="#900000" bgcolor="#EEEEEE">
 
 <!-- 访问验证 -->
-<div id="gatekeeper" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#EEEEEE;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;">
-  <div style="background:white;padding:40px;border-radius:10px;box-shadow:0 4px 6px rgba(0,0,0,0.1);text-align:center;max-width:400px;">
-    <h2 style="color:#0037da;margin-bottom:20px;">访问验证</h2>
-    <p style="margin-bottom:20px;color:#666;">页面内容仅供学习交流使用</p>
-    <button onclick="checkPassword()" style="padding:12px 30px;font-size:16px;background:#0037da;color:white;border:none;border-radius:5px;cursor:pointer;">验证访问</button>
-    <p style="margin-top:15px;font-size:12px;color:#999;">提示: format!("{}{}", UNI*, MAJOR).to_lowercase();</p>
-  </div>
+<div id="gatekeeper" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#EEEEEE;z-index:9999;">
+<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+<tr><td align="center" valign="middle">
+<table border="3" bordercolor="#0000DE" cellspacing="0" cellpadding="20" bgcolor="#FFFFFF">
+<tr><td align="center">
+<font face="Courier New" size="4" color="#0037da"><b>访问验证</b></font><br><br>
+<font face="Courier New" size="2" color="#000000">页面内容仅供学习交流使用</font><br><br>
+<form>
+<input type="button" value="[ 进入 ]" onclick="checkPassword()" style="padding:15px 40px;font-size:18px;font-family:Courier New;">
+</form>
+<br>
+<font face="Courier New" size="1" color="#666666">提示: format!("{}{}", UNI*, MAJOR).to_lowercase();</font>
+</td></tr>
+</table>
+</td></tr>
+</table>
 </div>
 
 <!-- 主要内容 -->
